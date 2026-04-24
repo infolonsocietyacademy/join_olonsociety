@@ -1,0 +1,1803 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Olon Society Academy: solicita tu acceso y recibe por WhatsApp los proximos pasos si tu perfil es aceptado." />
+    <title>Olon Society Academy | Solicitud de Acceso</title>
+    <link rel="icon" type="image/png" href="assets/favicon.png" />
+    <link rel="apple-touch-icon" href="assets/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
+    <script src="supabase-config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+      *, *::before, *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --white: #ffffff;
+        --cream: #fbfaf4;
+        --paper: #f5f7f8;
+        --line: #d9e0e4;
+        --ink: #07111d;
+        --navy-950: #05101d;
+        --navy-900: #081a2d;
+        --navy-800: #0d263d;
+        --navy-700: #123a58;
+        --gold-100: #fff4cb;
+        --gold-300: #f7d66b;
+        --gold-500: #e8b93f;
+        --gold-600: #c89425;
+        --teal-500: #0b7686;
+        --danger: #c43b43;
+        --text-main: #111827;
+        --text-sub: #5d697a;
+        --text-muted: #8792a0;
+        --radius: 18px;
+        --shadow-sm: 0 4px 18px rgba(5, 16, 29, 0.08);
+        --shadow-lg: 0 28px 70px rgba(5, 16, 29, 0.22);
+        --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        min-height: 100vh;
+        overflow-x: hidden;
+        color: var(--text-main);
+        background: var(--cream);
+        font-family: "DM Sans", sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        pointer-events: none;
+        opacity: 0.14;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.18'/%3E%3C/svg%3E");
+      }
+
+      h1, h2, h3 {
+        font-family: "Sora", sans-serif;
+        line-height: 1.12;
+        letter-spacing: 0;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      button, input, select, textarea {
+        font: inherit;
+      }
+
+      button {
+        cursor: pointer;
+      }
+
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 20;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        padding: 18px 5%;
+        color: var(--white);
+        transition: 0.32s var(--ease);
+      }
+
+      nav.scrolled {
+        padding-block: 12px;
+        color: var(--text-main);
+        border-bottom: 1px solid rgba(217, 224, 228, 0.9);
+        background: rgba(251, 250, 244, 0.9);
+        backdrop-filter: blur(18px);
+        box-shadow: 0 10px 34px rgba(5, 16, 29, 0.08);
+      }
+
+      .nav-logo, .footer-logo {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+        font-family: "Sora", sans-serif;
+        font-weight: 900;
+      }
+
+      .nav-logo img {
+        width: 56px;
+        height: 56px;
+        object-fit: contain;
+        filter: drop-shadow(0 8px 18px rgba(232, 185, 63, 0.28));
+      }
+
+      .nav-logo span span,
+      .footer-logo span span {
+        color: var(--gold-500);
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 26px;
+        list-style: none;
+      }
+
+      .nav-links a {
+        color: currentColor;
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 800;
+        opacity: 0.82;
+      }
+
+      .nav-links a:hover {
+        color: var(--gold-500);
+        opacity: 1;
+      }
+
+      .nav-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 18px;
+        border-radius: 999px;
+        color: var(--navy-950) !important;
+        background: var(--gold-500);
+        opacity: 1 !important;
+        box-shadow: 0 10px 26px rgba(232, 185, 63, 0.26);
+      }
+
+      .hamburger {
+        display: none;
+        width: 44px;
+        height: 44px;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 999px;
+        color: currentColor;
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      .hamburger span {
+        width: 20px;
+        height: 2px;
+        border-radius: 99px;
+        background: currentColor;
+      }
+
+      .mobile-menu {
+        position: fixed;
+        inset: 0;
+        z-index: 50;
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 24px;
+        color: var(--white);
+        background: rgba(5, 16, 29, 0.96);
+        backdrop-filter: blur(18px);
+      }
+
+      .mobile-menu.open {
+        display: flex;
+      }
+
+      .mobile-menu a {
+        font-family: "Sora", sans-serif;
+        font-size: clamp(1.5rem, 8vw, 2.4rem);
+        font-weight: 900;
+        text-decoration: none;
+      }
+
+      .mobile-close {
+        position: absolute;
+        top: 22px;
+        right: 5%;
+        width: 46px;
+        height: 46px;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        border-radius: 999px;
+        color: var(--white);
+        background: rgba(255, 255, 255, 0.08);
+        font-size: 1.4rem;
+      }
+
+      #hero {
+        position: relative;
+        display: grid;
+        place-items: center;
+        min-height: 82svh;
+        overflow: hidden;
+        padding: 112px 5% 64px;
+        color: var(--white);
+        background:
+          linear-gradient(105deg, rgba(5, 16, 29, 0.97), rgba(8, 26, 45, 0.9), rgba(12, 38, 61, 0.76)),
+          radial-gradient(circle at 50% 14%, rgba(232, 185, 63, 0.2), transparent 34%),
+          var(--navy-950);
+      }
+
+      #hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(90deg, rgba(232, 185, 63, 0.12) 0 1px, transparent 1px 100%),
+          linear-gradient(0deg, rgba(255, 255, 255, 0.05) 0 1px, transparent 1px 100%);
+        background-size: 84px 84px;
+        mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.58), transparent 78%);
+      }
+
+      #hero::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 120px;
+        background: linear-gradient(to bottom, transparent, var(--cream));
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 1;
+        width: min(980px, 100%);
+        display: grid;
+        justify-items: center;
+        text-align: center;
+      }
+
+      .hero-logo {
+        width: 220px;
+        max-width: 42vw;
+        aspect-ratio: 1;
+        object-fit: contain;
+        margin-bottom: 26px;
+        filter: drop-shadow(0 24px 48px rgba(0, 0, 0, 0.34));
+      }
+
+      .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 22px;
+        padding: 8px 16px;
+        border: 1px solid rgba(247, 214, 107, 0.42);
+        border-radius: 999px;
+        color: var(--gold-100);
+        background: rgba(5, 16, 29, 0.42);
+        font-size: 0.76rem;
+        font-weight: 900;
+        text-transform: uppercase;
+      }
+
+      .badge-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 99px;
+        background: var(--gold-500);
+        box-shadow: 0 0 0 7px rgba(232, 185, 63, 0.16);
+      }
+
+      .hero-title {
+        margin: 0 auto 22px;
+        max-width: 11ch;
+        font-size: clamp(2.65rem, 7.5vw, 6rem);
+        font-weight: 900;
+        text-wrap: balance;
+      }
+
+      .hero-title em {
+        color: var(--gold-300);
+        font-style: normal;
+      }
+
+      .hero-sub {
+        max-width: 720px;
+        margin: 0 auto 36px;
+        color: rgba(255, 255, 255, 0.78);
+        font-size: clamp(1rem, 2.1vw, 1.22rem);
+        line-height: 1.7;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 14px;
+      }
+
+      .btn-primary, .btn-secondary, .btn-dark, .btn-danger, .btn-light {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 9px;
+        min-height: 50px;
+        padding: 14px 24px;
+        border: 0;
+        border-radius: 999px;
+        font-family: "Sora", sans-serif;
+        font-size: 0.92rem;
+        font-weight: 900;
+        text-decoration: none;
+        transition: transform 0.24s ease, box-shadow 0.24s ease;
+      }
+
+      .btn-primary {
+        color: var(--navy-950);
+        background: linear-gradient(135deg, var(--gold-300), var(--gold-500));
+        box-shadow: 0 16px 38px rgba(232, 185, 63, 0.3);
+      }
+
+      .btn-secondary {
+        color: var(--white);
+        border: 1px solid rgba(255, 255, 255, 0.24);
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      .btn-dark {
+        color: var(--white);
+        background: var(--navy-900);
+      }
+
+      .btn-danger {
+        color: var(--white);
+        background: var(--danger);
+      }
+
+      .btn-light {
+        color: var(--navy-950);
+        background: var(--white);
+      }
+
+      .btn-primary:hover, .btn-secondary:hover, .btn-dark:hover, .btn-danger:hover, .btn-light:hover {
+        transform: translateY(-3px);
+      }
+
+      .btn-icon {
+        display: inline-grid;
+        place-items: center;
+        width: 23px;
+        height: 23px;
+        border-radius: 999px;
+        color: var(--white);
+        background: rgba(5, 16, 29, 0.85);
+      }
+
+      section {
+        position: relative;
+        padding: 92px 5%;
+      }
+
+      .section-inner {
+        width: min(1180px, 100%);
+        margin: 0 auto;
+      }
+
+      .section-header {
+        max-width: 780px;
+        margin: 0 auto 48px;
+        text-align: center;
+      }
+
+      .section-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 14px;
+        color: var(--gold-600);
+        font-size: 0.75rem;
+        font-weight: 900;
+        text-transform: uppercase;
+      }
+
+      .section-tag::before {
+        content: "";
+        width: 9px;
+        height: 9px;
+        border-radius: 99px;
+        background: var(--gold-500);
+        box-shadow: 0 0 0 5px rgba(232, 185, 63, 0.16);
+      }
+
+      .section-title {
+        margin-bottom: 14px;
+        font-size: clamp(1.9rem, 4vw, 3.1rem);
+      }
+
+      .section-sub {
+        color: var(--text-sub);
+        font-size: 1.05rem;
+        line-height: 1.7;
+      }
+
+      .form-shell {
+        display: grid;
+        grid-template-columns: 0.92fr 1.08fr;
+        gap: 24px;
+        align-items: start;
+      }
+
+      .form-aside, .registration-form, .panel-login, .panel-tools, .request-card {
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--white);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .form-aside {
+        position: sticky;
+        top: 110px;
+        overflow: hidden;
+      }
+
+      .aside-top {
+        display: grid;
+        justify-items: center;
+        padding: 32px;
+        color: var(--white);
+        text-align: center;
+        background: linear-gradient(145deg, rgba(232, 185, 63, 0.18), transparent 44%), linear-gradient(160deg, var(--navy-900), var(--navy-700));
+      }
+
+      .aside-logo {
+        display: block;
+        width: 158px;
+        max-width: 70%;
+        margin-bottom: 24px;
+        object-fit: contain;
+      }
+
+      .aside-top h3 {
+        margin-bottom: 12px;
+        font-size: 1.45rem;
+      }
+
+      .aside-top p {
+        max-width: 32ch;
+        color: rgba(255, 255, 255, 0.72);
+        line-height: 1.65;
+      }
+
+      .aside-list {
+        display: grid;
+        gap: 14px;
+        padding: 24px;
+        list-style: none;
+        width: min(100%, 460px);
+        margin: 0 auto;
+      }
+
+      .aside-list li {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 12px;
+        color: var(--text-sub);
+        line-height: 1.55;
+      }
+
+      .aside-list span {
+        display: grid;
+        place-items: center;
+        width: 32px;
+        height: 32px;
+        border-radius: 10px;
+        color: var(--navy-950);
+        background: var(--gold-300);
+        font-family: "Sora", sans-serif;
+        font-weight: 900;
+      }
+
+      .registration-form {
+        display: grid;
+        gap: 18px;
+        padding: clamp(20px, 3vw, 34px);
+      }
+
+      .form-block {
+        padding-bottom: 20px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .form-block:last-of-type {
+        border-bottom: 0;
+      }
+
+      .block-heading {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 18px;
+      }
+
+      .block-number {
+        display: grid;
+        place-items: center;
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
+        color: var(--navy-950);
+        background: var(--gold-300);
+        font-family: "Sora", sans-serif;
+        font-weight: 900;
+      }
+
+      .form-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .field {
+        display: grid;
+        min-width: 0;
+        gap: 7px;
+      }
+
+      .field.full, .choice-group.full {
+        grid-column: 1 / -1;
+      }
+
+      .field label, .choice-group legend {
+        color: var(--text-main);
+        font-size: 0.82rem;
+        font-weight: 900;
+      }
+
+      .field input, .field select, .field textarea, .panel-login input, .panel-search input {
+        width: 100%;
+        min-height: 50px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        color: var(--text-main);
+        background: var(--paper);
+        outline: none;
+        padding: 12px 14px;
+      }
+
+      .field textarea {
+        min-height: 132px;
+        resize: vertical;
+        line-height: 1.58;
+      }
+
+      .field input:focus, .field select:focus, .field textarea:focus, .panel-login input:focus, .panel-search input:focus {
+        border-color: rgba(232, 185, 63, 0.75);
+        background: var(--white);
+        box-shadow: 0 0 0 3px rgba(232, 185, 63, 0.14);
+      }
+
+      .choice-group {
+        display: flex;
+        flex-wrap: wrap;
+        min-width: 0;
+        gap: 10px;
+        margin: 0;
+        padding: 0;
+        border: 0;
+      }
+
+      .choice-group legend {
+        width: 100%;
+      }
+
+      .choice-group label {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        min-height: 42px;
+        padding: 9px 13px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        color: var(--text-sub);
+        background: var(--white);
+        font-weight: 800;
+      }
+
+      .choice-group input {
+        accent-color: var(--gold-500);
+      }
+
+      .form-submit {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        flex-wrap: wrap;
+        padding: 20px;
+        border-radius: 16px;
+        color: var(--white);
+        background: linear-gradient(145deg, rgba(232, 185, 63, 0.16), transparent 44%), var(--navy-900);
+      }
+
+      .form-submit p {
+        color: rgba(255, 255, 255, 0.72);
+        line-height: 1.58;
+      }
+
+      .form-message {
+        display: none;
+        padding: 14px 16px;
+        border: 1px solid rgba(247, 214, 107, 0.26);
+        border-radius: 14px;
+        color: var(--gold-300);
+        background: rgba(8, 26, 45, 0.92);
+      }
+
+      .form-message.open {
+        display: block;
+      }
+
+      #panel {
+        color: var(--white);
+        background: linear-gradient(rgba(5, 16, 29, 0.94), rgba(5, 16, 29, 0.96)), radial-gradient(circle at 50% 0%, rgba(232, 185, 63, 0.18), transparent 32%), var(--navy-950);
+      }
+
+      #panel .section-title, #panel .section-sub {
+        color: var(--white);
+      }
+
+      #panel .section-sub {
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      .panel-login {
+        max-width: 620px;
+        margin: 0 auto;
+        padding: 26px;
+        color: var(--white);
+        text-align: center;
+        border-color: rgba(247, 214, 107, 0.22);
+        background: linear-gradient(145deg, rgba(232, 185, 63, 0.13), transparent 46%), linear-gradient(160deg, var(--navy-900), var(--navy-950));
+        box-shadow: 0 34px 90px rgba(0, 0, 0, 0.28);
+      }
+
+      .panel-login h3 {
+        margin-bottom: 10px;
+      }
+
+      .panel-login p {
+        margin-bottom: 18px;
+        max-width: 38ch;
+        margin-inline: auto;
+        color: rgba(255, 255, 255, 0.68);
+        line-height: 1.6;
+      }
+
+      .panel-login-row {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 10px;
+        width: min(100%, 520px);
+        margin: 0 auto;
+      }
+
+      .panel-login input, .panel-search input {
+        color: var(--white);
+        border-color: rgba(255, 255, 255, 0.14);
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      .panel-login input::placeholder, .panel-search input::placeholder {
+        color: rgba(255, 255, 255, 0.44);
+      }
+
+      .panel-message {
+        min-height: 22px;
+        max-width: 42ch;
+        margin: 12px auto 0;
+        color: var(--gold-300);
+        font-size: 0.9rem;
+        line-height: 1.45;
+        text-align: center;
+      }
+
+      .panel-dashboard {
+        display: none;
+      }
+
+      .panel-dashboard.open {
+        display: block;
+      }
+
+      .panel-stats {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+        margin-bottom: 18px;
+      }
+
+      .panel-stat {
+        padding: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: var(--radius);
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      .panel-stat strong {
+        display: block;
+        color: var(--gold-300);
+        font-family: "Sora", sans-serif;
+        font-size: clamp(1.8rem, 4vw, 2.5rem);
+      }
+
+      .panel-stat span {
+        display: block;
+        margin-top: 8px;
+        color: rgba(255, 255, 255, 0.66);
+        font-size: 0.84rem;
+        font-weight: 900;
+        text-transform: uppercase;
+      }
+
+      .panel-tools {
+        display: grid;
+        grid-template-columns: minmax(230px, 1fr) auto auto auto;
+        gap: 12px;
+        align-items: end;
+        margin-bottom: 18px;
+        padding: 14px;
+        color: var(--white);
+        border-color: rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.08);
+        box-shadow: none;
+      }
+
+      .panel-search {
+        display: grid;
+        gap: 7px;
+      }
+
+      .panel-search label {
+        color: rgba(255, 255, 255, 0.62);
+        font-family: "Sora", sans-serif;
+        font-size: 0.72rem;
+        font-weight: 900;
+        text-transform: uppercase;
+      }
+
+      .panel-segments {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .segment {
+        min-height: 42px;
+        padding: 0 14px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: 999px;
+        color: rgba(255, 255, 255, 0.72);
+        background: rgba(255, 255, 255, 0.07);
+        font-family: "Sora", sans-serif;
+        font-size: 0.78rem;
+        font-weight: 900;
+      }
+
+      .segment.active {
+        color: var(--navy-950);
+        border-color: transparent;
+        background: var(--gold-300);
+      }
+
+      .requests-list {
+        display: grid;
+        gap: 14px;
+      }
+
+      .request-card {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 18px;
+        padding: 20px;
+        color: var(--white);
+        border-color: rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.08);
+        box-shadow: none;
+      }
+
+      .request-head {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 14px;
+        margin-bottom: 16px;
+      }
+
+      .request-date {
+        display: block;
+        margin-bottom: 7px;
+        color: rgba(255, 255, 255, 0.55);
+        font-size: 0.76rem;
+        font-weight: 900;
+        text-transform: uppercase;
+      }
+
+      .request-status {
+        display: inline-flex;
+        align-items: center;
+        min-height: 30px;
+        padding: 0 11px;
+        border-radius: 999px;
+        color: var(--navy-950);
+        background: var(--gold-300);
+        font-size: 0.76rem;
+        font-weight: 900;
+        white-space: nowrap;
+      }
+
+      .request-status.accepted {
+        color: var(--white);
+        background: var(--teal-500);
+      }
+
+      .request-grid, .details-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .details-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        margin-top: 12px;
+      }
+
+      .request-item, .detail-item {
+        min-width: 0;
+        padding: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.06);
+      }
+
+      .request-item span, .detail-item span {
+        display: block;
+        color: var(--gold-300);
+        font-family: "Sora", sans-serif;
+        font-size: 0.72rem;
+        font-weight: 900;
+        text-transform: uppercase;
+      }
+
+      .request-item p, .detail-item p {
+        margin-top: 6px;
+        color: rgba(255, 255, 255, 0.78);
+        line-height: 1.45;
+        overflow-wrap: anywhere;
+      }
+
+      .request-details {
+        margin-top: 16px;
+      }
+
+      .request-details summary {
+        color: var(--gold-300);
+        font-family: "Sora", sans-serif;
+        font-size: 0.82rem;
+        font-weight: 900;
+        cursor: pointer;
+      }
+
+      .request-actions {
+        display: grid;
+        align-content: start;
+        gap: 10px;
+        min-width: 148px;
+      }
+
+      .request-actions .btn-primary, .request-actions .btn-danger {
+        width: 100%;
+        padding-inline: 16px;
+        font-size: 0.82rem;
+      }
+
+      .empty-state {
+        padding: 28px;
+        border: 1px dashed rgba(255, 255, 255, 0.18);
+        border-radius: var(--radius);
+        color: rgba(255, 255, 255, 0.62);
+        text-align: center;
+        background: rgba(255, 255, 255, 0.06);
+      }
+
+      footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        flex-wrap: wrap;
+        padding: 38px 5%;
+        color: rgba(255, 255, 255, 0.58);
+        background: var(--navy-950);
+      }
+
+      .footer-logo {
+        color: var(--white);
+      }
+
+      .footer-logo img {
+        width: 88px;
+        height: 88px;
+        object-fit: contain;
+      }
+
+      .footer-links {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+
+      .footer-links a {
+        color: rgba(255, 255, 255, 0.58);
+        text-decoration: none;
+        font-size: 0.86rem;
+        font-weight: 900;
+      }
+
+      @media (max-width: 980px) {
+        .nav-links {
+          display: none;
+        }
+
+        .hamburger {
+          display: flex;
+        }
+
+        .form-shell, .panel-tools, .request-card {
+          grid-template-columns: 1fr;
+        }
+
+        .form-aside {
+          position: static;
+        }
+      }
+
+      @media (max-width: 680px) {
+        section {
+          padding: 62px 6%;
+        }
+
+        nav, nav.scrolled {
+          padding-inline: 6%;
+        }
+
+        #hero {
+          min-height: auto;
+          padding: 96px 6% 54px;
+        }
+
+        .hero-logo {
+          width: 160px;
+        }
+
+        .hero-title {
+          font-size: clamp(2rem, 10vw, 2.45rem);
+        }
+
+        .hero-actions, .form-submit, .panel-login-row {
+          display: grid;
+          grid-template-columns: 1fr;
+        }
+
+        .hero-actions .btn-primary, .hero-actions .btn-secondary, .form-submit .btn-primary, .panel-login-row .btn-primary, .panel-tools .btn-light {
+          width: 100%;
+        }
+
+        .form-grid, .panel-stats, .request-grid, .details-grid, .request-actions {
+          grid-template-columns: 1fr;
+        }
+
+        .field.full, .choice-group.full {
+          grid-column: auto;
+        }
+
+        .aside-top, .registration-form, .panel-login {
+          padding: 22px;
+        }
+
+        footer {
+          flex-direction: column;
+          text-align: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+      <button class="mobile-close" type="button" onclick="closeMobileMenu()" aria-label="Cerrar menu">&times;</button>
+      <a href="#registro" onclick="closeMobileMenu()">Registro</a>
+      <a href="#panel" onclick="closeMobileMenu()">Panel</a>
+      <a href="#contacto" onclick="closeMobileMenu()">Contacto</a>
+    </div>
+
+    <nav id="navbar">
+      <a href="#hero" class="nav-logo" aria-label="Olon Society Academy">
+        <img src="assets/olon-mark.png" alt="Logo de Olon Society Academy" />
+        <span>Olon <span>Society</span></span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#registro">Registro</a></li>
+        <li><a href="#panel">Panel</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+        <li><a href="#registro" class="nav-cta"><span class="btn-icon">+</span> Solicitar acceso</a></li>
+      </ul>
+      <button class="hamburger" type="button" onclick="openMobileMenu()" aria-label="Abrir menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </nav>
+
+    <section id="hero">
+      <div class="hero-content">
+        <img src="assets/olon-logo.png" class="hero-logo" alt="Olon Society Academy" />
+        <div class="hero-badge">
+          <span class="badge-dot"></span>
+          <span>Solicitud de acceso</span>
+          <span>|</span>
+          <span>Cupos limitados</span>
+          <span>|</span>
+          <span>Revision personalizada</span>
+        </div>
+        <h1 class="hero-title">Solicita tu acceso a <em>Olon Society</em></h1>
+        <p class="hero-sub">Completa tu solicitud y nuestro equipo evaluara tu perfil. Si eres aceptado(a), te enviaremos por WhatsApp el acceso al grupo y los proximos pasos para comenzar.</p>
+        <div class="hero-actions">
+          <a href="#registro" class="btn-primary"><span class="btn-icon">+</span> Solicitar acceso</a>
+          <a href="#contacto" class="btn-secondary"><span class="btn-icon">W</span> Hablar por WhatsApp</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="registro">
+      <div class="section-inner">
+        <div class="section-header">
+          <span class="section-tag">Formulario de registro</span>
+          <h2 class="section-title">Solicitud de acceso al portal</h2>
+          <p class="section-sub">Comparte tu informacion para evaluar tu perfil y recomendarte el acceso mas adecuado dentro de la academia.</p>
+        </div>
+
+        <div class="form-shell">
+          <aside class="form-aside">
+            <div class="aside-top">
+              <img class="aside-logo" src="assets/olon-mark.png" alt="Logo Olon" />
+              <h3>Asi funciona tu solicitud</h3>
+              <p>Queremos conocerte mejor para recomendarte el acceso correcto y darte una entrada mas clara a la comunidad.</p>
+            </div>
+            <ul class="aside-list">
+              <li><span>1</span><p>Completa tu solicitud con tus datos, experiencia y objetivos dentro del trading.</p></li>
+              <li><span>2</span><p>Nuestro equipo revisara tu perfil para validar si este acceso es el ideal para ti.</p></li>
+              <li><span>3</span><p>Si eres aceptado(a), te enviaremos por WhatsApp el acceso al grupo y los proximos pasos.</p></li>
+            </ul>
+          </aside>
+
+          <form class="registration-form" id="registrationForm">
+            <div class="form-block">
+              <div class="block-heading"><span class="block-number">01</span><h3>Informacion Personal</h3></div>
+              <div class="form-grid">
+                <div class="field"><label for="fullName">Nombre completo</label><input id="fullName" name="fullName" autocomplete="name" required /></div>
+                <div class="field"><label for="email">Correo electronico</label><input id="email" name="email" type="email" autocomplete="email" required /></div>
+                <div class="field"><label for="whatsapp">Numero de WhatsApp</label><input id="whatsapp" name="whatsapp" autocomplete="tel" placeholder="+1 787 000 0000" required /></div>
+                <div class="field"><label for="age">Edad</label><input id="age" name="age" type="number" min="13" max="100" required /></div>
+                <div class="field"><label for="country">Pais de residencia</label><input id="country" name="country" autocomplete="country-name" required /></div>
+                <div class="field"><label for="city">Ciudad / Pueblo</label><input id="city" name="city" autocomplete="address-level2" required /></div>
+              </div>
+            </div>
+
+            <div class="form-block">
+              <div class="block-heading"><span class="block-number">02</span><h3>Perfil Financiero</h3></div>
+              <div class="form-grid">
+                <fieldset class="choice-group"><legend>Actualmente te encuentras trabajando?</legend><label><input type="radio" name="working" value="Si" required /> Si</label><label><input type="radio" name="working" value="No" /> No</label></fieldset>
+                <div class="field"><label for="monthlyIncome">Ingreso mensual aproximado</label><select id="monthlyIncome" name="monthlyIncome" required><option value="">Selecciona una opcion</option><option>Menos de $1,000</option><option>$1,000 - $3,000</option><option>Mas de $3,000</option></select></div>
+                <div class="field full"><label for="availableCapital">Capital disponible para iniciar en trading</label><select id="availableCapital" name="availableCapital" required><option value="">Selecciona una opcion</option><option>$0 - $100</option><option>$100 - $500</option><option>$500 - $1,000</option><option>Mas de $1,000</option></select></div>
+              </div>
+            </div>
+
+            <div class="form-block">
+              <div class="block-heading"><span class="block-number">03</span><h3>Experiencia en Trading</h3></div>
+              <div class="form-grid">
+                <div class="field"><label for="experienceLevel">Nivel de experiencia</label><select id="experienceLevel" name="experienceLevel" required><option value="">Selecciona una opcion</option><option>Ninguna</option><option>Basica</option><option>Intermedia</option><option>Avanzada</option></select></div>
+                <fieldset class="choice-group"><legend>Has experimentado perdidas operando?</legend><label><input type="radio" name="tradingLosses" value="Si" required /> Si</label><label><input type="radio" name="tradingLosses" value="No" /> No</label></fieldset>
+                <fieldset class="choice-group full"><legend>Mercados con experiencia</legend><label><input type="checkbox" name="markets" value="Forex" /> Forex</label><label><input type="checkbox" name="markets" value="Indices (NAS100, US30)" /> Indices (NAS100, US30)</label><label><input type="checkbox" name="markets" value="Oro (XAUUSD)" /> Oro (XAUUSD)</label><label><input type="checkbox" name="markets" value="Criptomonedas" /> Criptomonedas</label></fieldset>
+              </div>
+            </div>
+
+            <div class="form-block">
+              <div class="block-heading"><span class="block-number">04</span><h3>Mentalidad y Compromiso</h3></div>
+              <div class="form-grid">
+                <div class="field full"><label for="motivation">Por que deseas aprender trading?</label><textarea id="motivation" name="motivation" required></textarea></div>
+                <div class="field"><label for="weeklyTime">Tiempo semanal disponible</label><select id="weeklyTime" name="weeklyTime" required><option value="">Selecciona una opcion</option><option>1 a 5 horas</option><option>5 a 10 horas</option><option>Mas de 10 horas</option></select></div>
+                <fieldset class="choice-group"><legend>Dispuesto(a) a seguir reglas y disciplina?</legend><label><input type="radio" name="discipline" value="Si" required /> Si</label><label><input type="radio" name="discipline" value="No" /> No</label></fieldset>
+              </div>
+            </div>
+
+            <div class="form-block">
+              <div class="block-heading"><span class="block-number">05</span><h3>Objetivos</h3></div>
+              <div class="form-grid">
+                <div class="field"><label for="mainGoal">Principal objetivo con el trading</label><select id="mainGoal" name="mainGoal" required><option value="">Selecciona una opcion</option><option>Generar ingresos adicionales</option><option>Convertirme en trader a tiempo completo</option><option>Aprender y desarrollar habilidades</option></select></div>
+                <div class="field"><label for="resultsTimeline">Plazo para comenzar a ver resultados</label><select id="resultsTimeline" name="resultsTimeline" required><option value="">Selecciona una opcion</option><option>1 a 3 meses</option><option>3 a 6 meses</option><option>Mas de 6 meses</option></select></div>
+              </div>
+            </div>
+
+            <div class="form-block">
+              <div class="block-heading"><span class="block-number">06</span><h3>Interes en el Programa</h3></div>
+              <div class="form-grid">
+                <div class="field"><label for="investmentIntent">Invertiria en educacion y herramientas?</label><select id="investmentIntent" name="investmentIntent" required><option value="">Selecciona una opcion</option><option>Si</option><option>No</option><option>Depende</option></select></div>
+                <fieldset class="choice-group full"><legend>Tipo de acceso de interes</legend><label><input type="checkbox" name="accessInterest" value="Señales VIP" /> Señales VIP</label><label><input type="checkbox" name="accessInterest" value="Indicador automatizado" /> Indicador automatizado</label><label><input type="checkbox" name="accessInterest" value="Mentoria personalizada" /> Mentoria personalizada</label></fieldset>
+              </div>
+            </div>
+
+            <div class="form-submit">
+              <p>Al enviar, el perfil queda disponible en el panel interno.</p>
+              <button class="btn-primary" type="submit"><span class="btn-icon">+</span> Enviar solicitud</button>
+            </div>
+            <p class="form-message" id="formMessage"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section id="panel">
+      <div class="section-inner">
+        <div class="section-header">
+          <span class="section-tag">Revision privada</span>
+          <h2 class="section-title">Owner login</h2>
+          <p class="section-sub">Area reservada para validar perfiles y compartir el acceso con las personas aprobadas.</p>
+        </div>
+
+        <div class="panel-login" id="panelLogin">
+          <h3>Area privada</h3>
+          <p>Desde aqui el equipo revisa las solicitudes.</p>
+          <form class="panel-login-row" id="ownerLoginForm">
+            <input id="ownerPassword" type="password" placeholder="Clave de acceso" autocomplete="current-password" />
+            <button class="btn-primary" type="submit" id="ownerLoginButton"><span class="btn-icon">></span> Entrar</button>
+          </form>
+          <p class="panel-message" id="panelMessage"></p>
+        </div>
+
+        <div class="panel-dashboard" id="panelDashboard">
+          <div class="panel-stats" aria-label="Resumen de solicitudes">
+            <div class="panel-stat"><strong id="totalCount">0</strong><span>Total</span></div>
+            <div class="panel-stat"><strong id="pendingCount">0</strong><span>Pendientes</span></div>
+            <div class="panel-stat"><strong id="acceptedCount">0</strong><span>Aceptadas</span></div>
+          </div>
+
+          <div class="panel-tools">
+            <div class="panel-search"><label for="requestSearch">Buscar</label><input id="requestSearch" type="search" placeholder="Nombre, email, WhatsApp o pais" /></div>
+            <div class="panel-segments" role="group" aria-label="Estado">
+              <button class="segment active" type="button" data-filter="all">Todas</button>
+              <button class="segment" type="button" data-filter="pending">Pendientes</button>
+              <button class="segment" type="button" data-filter="accepted">Aceptadas</button>
+            </div>
+            <button class="btn-light" type="button" id="exportButton">Exportar</button>
+            <button class="btn-secondary" type="button" id="panelExitButton">Salir</button>
+          </div>
+
+          <div class="requests-list" id="requestsList" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contacto">
+      <div class="section-inner">
+        <div class="section-header">
+          <span class="section-tag">Contacto</span>
+          <h2 class="section-title">Olon Society Academy</h2>
+          <p class="section-sub">El contacto principal de la academia se mantiene disponible para orientacion directa.</p>
+        </div>
+        <div class="hero-actions">
+          <a class="btn-dark" href="https://wa.me/17879048668?text=Hola%2C%20quiero%20informacion%20sobre%20Olon%20Society%20Academy" target="_blank" rel="noopener noreferrer"><span class="btn-icon">W</span> WhatsApp</a>
+          <a class="btn-primary" href="https://mail.google.com/mail/?view=cm&fs=1&to=infolonsocietyacademy@gmail.com&su=Quiero%20informacion%20sobre%20Olon%20Society%20Academy&body=Hola%2C%20quiero%20informacion%20sobre%20Olon%20Society%20Academy." target="_blank" rel="noopener noreferrer"><span class="btn-icon">@</span> Email</a>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <a href="#hero" class="footer-logo">
+        <img src="assets/olon-footer-logo.png" alt="Logo Olon Society Academy" />
+        <span>Olon <span>Society Academy</span></span>
+      </a>
+      <p>© 2026 Olon Society Academy. Todos los derechos reservados.</p>
+      <div class="footer-links">
+        <a href="#registro">Registro</a>
+        <a href="#panel">Panel</a>
+        <a href="#contacto">Contacto</a>
+      </div>
+    </footer>
+
+    <template id="requestTemplate">
+      <article class="request-card">
+        <div>
+          <div class="request-head">
+            <div><span class="request-date"></span><h3 class="request-name"></h3></div>
+            <span class="request-status"></span>
+          </div>
+          <div class="request-grid">
+            <div class="request-item"><span>Email</span><p class="request-email"></p></div>
+            <div class="request-item"><span>WhatsApp</span><p class="request-whatsapp"></p></div>
+            <div class="request-item"><span>Ubicacion</span><p class="request-location"></p></div>
+            <div class="request-item"><span>Experiencia</span><p class="request-experience"></p></div>
+            <div class="request-item"><span>Capital</span><p class="request-capital"></p></div>
+            <div class="request-item"><span>Interes</span><p class="request-interest"></p></div>
+          </div>
+          <details class="request-details">
+            <summary>Ver perfil completo</summary>
+            <div class="details-grid"></div>
+          </details>
+        </div>
+        <div class="request-actions">
+          <button class="btn-primary accept-request" type="button"><span class="btn-icon">W</span> Aceptar</button>
+          <button class="btn-danger delete-request" type="button">Eliminar</button>
+        </div>
+      </article>
+    </template>
+
+    <script>
+      const STORAGE_KEY = "olonPortalRequests";
+      const WHATSAPP_MESSAGE = `🚀 Bienvenido/a a Olon Society Academy, Tu Solicitud ha sido aprobada.
+
+Donde el trading no es lo que parece… y muchos lo complican más de lo necesario. Aquí te enseñamos a verlo de forma clara, estructurada y profesional.
+
+🔗 Accede al grupo aquí:
+https://chat.whatsapp.com/CJ7xwOU2s1262iiYbSSoPy?mode=gi_t
+
+📌 Nota importante:
+No te pedimos dinero para invertir por ti. Nosotros enseñamos.
+
+Si recibes algún mensaje en nuestro nombre solicitando dinero, por favor repórtalo de inmediato.
+
+Nos vemos dentro 📈`;
+      const LOCAL_PANEL_PASSWORD = "nolofx";
+      const navbar = document.getElementById("navbar");
+      const mobileMenu = document.getElementById("mobileMenu");
+      const registrationForm = document.getElementById("registrationForm");
+      const formMessage = document.getElementById("formMessage");
+      const panelLogin = document.getElementById("panelLogin");
+      const panelDashboard = document.getElementById("panelDashboard");
+      const ownerLoginForm = document.getElementById("ownerLoginForm");
+      const ownerPassword = document.getElementById("ownerPassword");
+      const ownerLoginButton = document.getElementById("ownerLoginButton");
+      const panelMessage = document.getElementById("panelMessage");
+      const requestSearch = document.getElementById("requestSearch");
+      const requestsList = document.getElementById("requestsList");
+      const requestTemplate = document.getElementById("requestTemplate");
+      const exportButton = document.getElementById("exportButton");
+      const panelExitButton = document.getElementById("panelExitButton");
+      const filterButtons = Array.from(document.querySelectorAll("[data-filter]"));
+      const totalCount = document.getElementById("totalCount");
+      const pendingCount = document.getElementById("pendingCount");
+      const acceptedCount = document.getElementById("acceptedCount");
+      const supabaseConfig = window.OLON_SUPABASE || {};
+      const configuredOwnerEmail = String(supabaseConfig.ownerEmail || "infolonsocietyacademy@gmail.com").toLowerCase();
+      const configError = getSupabaseConfigError();
+      const isSupabaseReady = Boolean(
+        supabaseConfig.url &&
+          supabaseConfig.anonKey &&
+          !supabaseConfig.url.includes("PASTE_") &&
+          !supabaseConfig.anonKey.includes("PASTE_") &&
+          !configError &&
+          window.supabase
+      );
+      const supabaseClient = isSupabaseReady ? window.supabase.createClient(supabaseConfig.url, supabaseConfig.anonKey) : null;
+      let activeFilter = "all";
+      let panelRequests = [];
+
+      window.addEventListener("scroll", () => {
+        navbar.classList.toggle("scrolled", window.scrollY > 36);
+      });
+
+      function openMobileMenu() {
+        mobileMenu.classList.add("open");
+        mobileMenu.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeMobileMenu() {
+        mobileMenu.classList.remove("open");
+        mobileMenu.setAttribute("aria-hidden", "true");
+        document.body.style.overflow = "";
+      }
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") closeMobileMenu();
+      });
+
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (event) {
+          const target = document.querySelector(this.getAttribute("href"));
+          if (!target) return;
+          event.preventDefault();
+          target.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+      });
+
+      function getSupabaseConfigError() {
+        const url = String(supabaseConfig.url || "");
+        const key = String(supabaseConfig.anonKey || "");
+        if (!url || url.includes("PASTE_") || !key || key.includes("PASTE_")) return "";
+        if (url.includes("/rest/v1")) return "La URL de Supabase debe ser la URL base del proyecto, sin /rest/v1 al final.";
+        if (key.startsWith("sb_secret_") || key.toLowerCase().includes("service_role")) {
+          return "La key configurada es secreta. Usa la anon public key o publishable key, no una secret/service_role key.";
+        }
+        return "";
+      }
+
+      function readLocalRequests() {
+        try {
+          const parsed = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+          return Array.isArray(parsed) ? parsed : [];
+        } catch (error) {
+          return [];
+        }
+      }
+
+      function writeLocalRequests(requests) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(requests));
+      }
+
+      function normalizePhone(phone) {
+        return String(phone || "").replace(/^00/, "").replace(/\D/g, "");
+      }
+
+      function buildWhatsappUrl(phone, message) {
+        return `https://wa.me/${normalizePhone(phone)}?text=${encodeURIComponent(message)}`;
+      }
+
+      function createId() {
+        return `OLON-${Date.now().toString(36).toUpperCase()}-${Math.random().toString(36).slice(2, 7).toUpperCase()}`;
+      }
+
+      function getCheckedValues(formData, name) {
+        return formData.getAll(name).filter(Boolean);
+      }
+
+      function showFormMessage(text, isError = false) {
+        formMessage.textContent = text;
+        formMessage.classList.add("open");
+        formMessage.style.color = isError ? "#ffd4d6" : "";
+        formMessage.style.borderColor = isError ? "rgba(196, 59, 67, 0.42)" : "";
+      }
+
+      function makeRequestFromForm(formData) {
+        const whatsapp = String(formData.get("whatsapp") || "").trim();
+        return {
+          id: createId(),
+          status: "pending",
+          submittedAt: new Date().toISOString(),
+          acceptedAt: null,
+          personal: {
+            fullName: String(formData.get("fullName") || "").trim(),
+            email: String(formData.get("email") || "").trim(),
+            whatsapp,
+            cleanWhatsapp: normalizePhone(whatsapp),
+            age: String(formData.get("age") || "").trim(),
+            country: String(formData.get("country") || "").trim(),
+            city: String(formData.get("city") || "").trim(),
+          },
+          financial: {
+            working: String(formData.get("working") || ""),
+            monthlyIncome: String(formData.get("monthlyIncome") || ""),
+            availableCapital: String(formData.get("availableCapital") || ""),
+          },
+          trading: {
+            experienceLevel: String(formData.get("experienceLevel") || ""),
+            markets: getCheckedValues(formData, "markets"),
+            tradingLosses: String(formData.get("tradingLosses") || ""),
+          },
+          mindset: {
+            motivation: String(formData.get("motivation") || "").trim(),
+            weeklyTime: String(formData.get("weeklyTime") || ""),
+            discipline: String(formData.get("discipline") || ""),
+          },
+          goals: {
+            mainGoal: String(formData.get("mainGoal") || ""),
+            resultsTimeline: String(formData.get("resultsTimeline") || ""),
+          },
+          program: {
+            investmentIntent: String(formData.get("investmentIntent") || ""),
+            accessInterest: getCheckedValues(formData, "accessInterest"),
+          },
+        };
+      }
+
+      function requestToRow(request) {
+        return {
+          id: request.id,
+          status: request.status,
+          submitted_at: request.submittedAt,
+          accepted_at: request.acceptedAt,
+          full_name: request.personal.fullName,
+          email: request.personal.email,
+          whatsapp: request.personal.whatsapp,
+          clean_whatsapp: request.personal.cleanWhatsapp,
+          age: request.personal.age ? Number(request.personal.age) : null,
+          country: request.personal.country,
+          city: request.personal.city,
+          working: request.financial.working,
+          monthly_income: request.financial.monthlyIncome,
+          available_capital: request.financial.availableCapital,
+          experience_level: request.trading.experienceLevel,
+          markets: request.trading.markets,
+          trading_losses: request.trading.tradingLosses,
+          motivation: request.mindset.motivation,
+          weekly_time: request.mindset.weeklyTime,
+          discipline: request.mindset.discipline,
+          main_goal: request.goals.mainGoal,
+          results_timeline: request.goals.resultsTimeline,
+          investment_intent: request.program.investmentIntent,
+          access_interest: request.program.accessInterest,
+        };
+      }
+
+      function rowToRequest(row) {
+        return {
+          id: row.id,
+          status: row.status || "pending",
+          submittedAt: row.submitted_at,
+          acceptedAt: row.accepted_at,
+          personal: {
+            fullName: row.full_name,
+            email: row.email,
+            whatsapp: row.whatsapp,
+            cleanWhatsapp: row.clean_whatsapp,
+            age: row.age ? String(row.age) : "",
+            country: row.country,
+            city: row.city,
+          },
+          financial: {
+            working: row.working,
+            monthlyIncome: row.monthly_income,
+            availableCapital: row.available_capital,
+          },
+          trading: {
+            experienceLevel: row.experience_level,
+            markets: row.markets || [],
+            tradingLosses: row.trading_losses,
+          },
+          mindset: {
+            motivation: row.motivation,
+            weeklyTime: row.weekly_time,
+            discipline: row.discipline,
+          },
+          goals: {
+            mainGoal: row.main_goal,
+            resultsTimeline: row.results_timeline,
+          },
+          program: {
+            investmentIntent: row.investment_intent,
+            accessInterest: row.access_interest || [],
+          },
+        };
+      }
+
+      async function saveRequest(request) {
+        if (!supabaseClient) {
+          const requests = readLocalRequests();
+          requests.unshift(request);
+          writeLocalRequests(requests);
+          return;
+        }
+        const { error } = await supabaseClient.from("portal_requests").insert(requestToRow(request));
+        if (error) throw error;
+      }
+
+      async function fetchRequests() {
+        if (!supabaseClient) return readLocalRequests();
+        const { data, error } = await supabaseClient.from("portal_requests").select("*").order("submitted_at", { ascending: false });
+        if (error) throw error;
+        return (data || []).map(rowToRequest);
+      }
+
+      async function acceptRequest(request) {
+        const acceptedAt = new Date().toISOString();
+        if (!supabaseClient) {
+          writeLocalRequests(readLocalRequests().map((item) => (item.id === request.id ? { ...item, status: "accepted", acceptedAt } : item)));
+          return;
+        }
+        const { error } = await supabaseClient.from("portal_requests").update({ status: "accepted", accepted_at: acceptedAt }).eq("id", request.id);
+        if (error) throw error;
+      }
+
+      async function deleteRequest(request) {
+        if (!supabaseClient) {
+          writeLocalRequests(readLocalRequests().filter((item) => item.id !== request.id));
+          return;
+        }
+        const { error } = await supabaseClient.from("portal_requests").delete().eq("id", request.id);
+        if (error) throw error;
+      }
+
+      registrationForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const submitButton = registrationForm.querySelector('button[type="submit"]');
+        const request = makeRequestFromForm(new FormData(registrationForm));
+        if (request.personal.cleanWhatsapp.length < 7) {
+          showFormMessage("Verifica el numero de WhatsApp antes de enviar la solicitud.", true);
+          return;
+        }
+        submitButton.disabled = true;
+        try {
+          await saveRequest(request);
+          registrationForm.reset();
+          showFormMessage(`Solicitud enviada correctamente. Codigo: ${request.id}`);
+          if (panelDashboard.classList.contains("open")) await refreshPanel();
+        } catch (error) {
+          showFormMessage(error.message || "No se pudo enviar la solicitud. Revisa Supabase.", true);
+        } finally {
+          submitButton.disabled = false;
+        }
+      });
+
+      ownerLoginForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        unlockPanel();
+      });
+
+      async function unlockPanel() {
+        ownerLoginButton.disabled = true;
+        const email = configuredOwnerEmail;
+        const password = ownerPassword.value;
+        if (configError) {
+          panelMessage.textContent = "Activa la conexion del panel antes de usar esta seccion.";
+          ownerLoginButton.disabled = false;
+          return;
+        }
+        if (!supabaseClient) {
+          if (password !== LOCAL_PANEL_PASSWORD) {
+            panelMessage.textContent = "Clave incorrecta. Intenta nuevamente.";
+            ownerLoginButton.disabled = false;
+            return;
+          }
+          sessionStorage.setItem("olonPanelUnlocked", "true");
+          panelMessage.textContent = "";
+          panelLogin.style.display = "none";
+          panelDashboard.classList.add("open");
+          await refreshPanel();
+          return;
+        }
+        if (!password) {
+          panelMessage.textContent = "Escribe la clave de acceso.";
+          ownerLoginButton.disabled = false;
+          return;
+        }
+        panelMessage.textContent = "Entrando...";
+        const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
+        if (error) {
+          panelMessage.textContent = "No se pudo iniciar sesion. Verifica la clave e intenta nuevamente.";
+          ownerLoginButton.disabled = false;
+          return;
+        }
+        panelMessage.textContent = "";
+        panelLogin.style.display = "none";
+        panelDashboard.classList.add("open");
+        await refreshPanel();
+      }
+
+      async function maybeUnlockPanel() {
+        if (configError) return;
+        if (!supabaseClient) {
+          if (sessionStorage.getItem("olonPanelUnlocked") === "true") {
+            panelLogin.style.display = "none";
+            panelDashboard.classList.add("open");
+            await refreshPanel();
+          }
+          return;
+        }
+        const { data } = await supabaseClient.auth.getSession();
+        if (data.session) {
+          panelLogin.style.display = "none";
+          panelDashboard.classList.add("open");
+          await refreshPanel();
+        }
+      }
+
+      async function closePanel() {
+        if (supabaseClient) {
+          try {
+            await supabaseClient.auth.signOut();
+          } catch (error) {
+            // noop
+          }
+        } else {
+          sessionStorage.removeItem("olonPanelUnlocked");
+        }
+
+        panelDashboard.classList.remove("open");
+        panelLogin.style.display = "";
+        ownerPassword.value = "";
+        panelMessage.textContent = "";
+        document.getElementById("registro").scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+
+      function formatDate(value) {
+        if (!value) return "Sin fecha";
+        return new Intl.DateTimeFormat("es-US", { year: "numeric", month: "short", day: "2-digit", hour: "numeric", minute: "2-digit" }).format(new Date(value));
+      }
+
+      function joinValues(values) {
+        return Array.isArray(values) && values.length ? values.join(", ") : "No indicado";
+      }
+
+      function setText(parent, selector, value) {
+        const target = parent.querySelector(selector);
+        if (target) target.textContent = value || "No indicado";
+      }
+
+      function searchBlob(request) {
+        const personal = request.personal || {};
+        return [request.id, personal.fullName, personal.email, personal.whatsapp, personal.country, personal.city, request.trading?.experienceLevel].filter(Boolean).join(" ").toLowerCase();
+      }
+
+      function filteredRequests(requests) {
+        const query = requestSearch.value.trim().toLowerCase();
+        return requests.filter((request) => {
+          const statusMatch = activeFilter === "all" || request.status === activeFilter;
+          const searchMatch = !query || searchBlob(request).includes(query);
+          return statusMatch && searchMatch;
+        });
+      }
+
+      function detailItem(label, value) {
+        const item = document.createElement("div");
+        item.className = "detail-item";
+        item.innerHTML = `<span>${label}</span><p></p>`;
+        item.querySelector("p").textContent = value || "No indicado";
+        return item;
+      }
+
+      function buildDetails(request) {
+        const personal = request.personal || {};
+        const financial = request.financial || {};
+        const trading = request.trading || {};
+        const mindset = request.mindset || {};
+        const goals = request.goals || {};
+        const program = request.program || {};
+        return [
+          ["ID", request.id],
+          ["Edad", personal.age],
+          ["Trabaja actualmente", financial.working],
+          ["Ingreso mensual", financial.monthlyIncome],
+          ["Mercados", joinValues(trading.markets)],
+          ["Perdidas operando", trading.tradingLosses],
+          ["Motivacion", mindset.motivation],
+          ["Tiempo semanal", mindset.weeklyTime],
+          ["Disciplina", mindset.discipline],
+          ["Objetivo principal", goals.mainGoal],
+          ["Plazo esperado", goals.resultsTimeline],
+          ["Invertiria en educacion", program.investmentIntent],
+          ["Aceptada el", request.acceptedAt ? formatDate(request.acceptedAt) : "Pendiente"],
+        ];
+      }
+
+      function renderStats(requests) {
+        const accepted = requests.filter((request) => request.status === "accepted").length;
+        totalCount.textContent = String(requests.length);
+        acceptedCount.textContent = String(accepted);
+        pendingCount.textContent = String(requests.length - accepted);
+      }
+
+      function renderRequest(request) {
+        const node = requestTemplate.content.firstElementChild.cloneNode(true);
+        const personal = request.personal || {};
+        const financial = request.financial || {};
+        const trading = request.trading || {};
+        const program = request.program || {};
+        const isAccepted = request.status === "accepted";
+
+        setText(node, ".request-date", formatDate(request.submittedAt));
+        setText(node, ".request-name", personal.fullName);
+        setText(node, ".request-email", personal.email);
+        setText(node, ".request-whatsapp", personal.whatsapp);
+        setText(node, ".request-location", [personal.city, personal.country].filter(Boolean).join(", "));
+        setText(node, ".request-experience", trading.experienceLevel);
+        setText(node, ".request-capital", financial.availableCapital);
+        setText(node, ".request-interest", joinValues(program.accessInterest));
+        const status = node.querySelector(".request-status");
+        status.textContent = isAccepted ? "Aceptada" : "Pendiente";
+        status.classList.toggle("accepted", isAccepted);
+        const detailsGrid = node.querySelector(".details-grid");
+        buildDetails(request).forEach(([label, value]) => detailsGrid.append(detailItem(label, value)));
+
+        node.querySelector(".accept-request").addEventListener("click", async () => {
+          const phone = personal.cleanWhatsapp || personal.whatsapp;
+          if (!normalizePhone(phone)) {
+            alert("Esta solicitud no tiene un WhatsApp valido.");
+            return;
+          }
+          try {
+            await acceptRequest(request);
+            window.open(buildWhatsappUrl(phone, WHATSAPP_MESSAGE), "_blank", "noopener");
+            await refreshPanel();
+          } catch (error) {
+            alert(error.message || "No se pudo aceptar la solicitud.");
+          }
+        });
+
+        node.querySelector(".delete-request").addEventListener("click", async () => {
+          const label = personal.fullName || "esta solicitud";
+          if (!confirm(`Eliminar ${label}?`)) return;
+          try {
+            await deleteRequest(request);
+            await refreshPanel();
+          } catch (error) {
+            alert(error.message || "No se pudo eliminar la solicitud.");
+          }
+        });
+
+        return node;
+      }
+
+      function renderPanel() {
+        renderStats(panelRequests);
+        const filtered = filteredRequests(panelRequests);
+        requestsList.innerHTML = "";
+        if (!filtered.length) {
+          const empty = document.createElement("div");
+          empty.className = "empty-state";
+          empty.textContent = "No hay solicitudes para mostrar.";
+          requestsList.append(empty);
+          return;
+        }
+        const fragment = document.createDocumentFragment();
+        filtered.forEach((request) => fragment.append(renderRequest(request)));
+        requestsList.append(fragment);
+      }
+
+      async function refreshPanel() {
+        requestsList.innerHTML = '<div class="empty-state">Cargando solicitudes...</div>';
+        try {
+          panelRequests = await fetchRequests();
+          renderPanel();
+        } catch (error) {
+          panelRequests = [];
+          renderStats(panelRequests);
+          requestsList.innerHTML = `<div class="empty-state">${error.message || "No se pudieron cargar las solicitudes."}</div>`;
+        }
+      }
+
+      requestSearch.addEventListener("input", renderPanel);
+      filterButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          activeFilter = button.dataset.filter;
+          filterButtons.forEach((item) => item.classList.toggle("active", item === button));
+          renderPanel();
+        });
+      });
+
+      exportButton.addEventListener("click", () => {
+        const blob = new Blob([JSON.stringify(panelRequests, null, 2)], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `olon-solicitudes-${new Date().toISOString().slice(0, 10)}.json`;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        URL.revokeObjectURL(url);
+      });
+
+      panelExitButton.addEventListener("click", closePanel);
+
+      maybeUnlockPanel();
+    </script>
+  </body>
+</html>
