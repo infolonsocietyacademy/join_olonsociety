@@ -1725,7 +1725,7 @@ Nos vemos dentro `;
           }
           try {
             await acceptRequest(request);
-            window.open(buildWhatsappUrl(phone, WHATSAPP_MESSAGE), "_blank", "noopener");
+            window.location.href = buildWhatsappUrl(phone, WHATSAPP_MESSAGE);
             await refreshPanel();
           } catch (error) {
             alert(error.message || "No se pudo aceptar la solicitud.");
