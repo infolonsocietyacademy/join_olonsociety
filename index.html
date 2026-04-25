@@ -57,6 +57,23 @@
         -webkit-font-smoothing: antialiased;
       }
 
+      body.owner-panel-page #hero,
+      body.owner-panel-page #registro,
+      body.owner-panel-page #contacto,
+      body.owner-panel-page footer {
+        display: none;
+      }
+
+      body.owner-panel-page .nav-links,
+      body.owner-panel-page .hamburger {
+        display: none !important;
+      }
+
+      body.owner-panel-page #panel {
+        min-height: 100vh;
+        padding-top: 128px;
+      }
+
       body::before {
         content: "";
         position: fixed;
@@ -1451,6 +1468,10 @@ Nos vemos dentro.`;
       let activeFilter = "pending";
       let panelRequests = [];
 
+      if (isOwnerPanelPage()) {
+        document.body.classList.add("owner-panel-page");
+      }
+
       window.addEventListener("scroll", () => {
         navbar.classList.toggle("scrolled", window.scrollY > 36);
       });
@@ -1465,6 +1486,36 @@ Nos vemos dentro.`;
         mobileMenu.classList.remove("open");
         mobileMenu.setAttribute("aria-hidden", "true");
         document.body.style.overflow = "";
+      }
+
+      function isOwnerPanelPage() {
+        return new URLSearchParams(window.location.search).get("view") === "owner-panel";
+      }
+
+      function buildOwnerPanelUrl() {
+        const url = new URL(window.location.href);
+        url.searchParams.set("view", "owner-panel");
+        url.hash = "panel";
+        return url.toString();
+      }
+
+      function openOwnerPanelTab(tabRef) {
+        const targetUrl = buildOwnerPanelUrl();
+        if (tabRef && !tabRef.closed) {
+          tabRef.location.href = targetUrl;
+          tabRef.focus();
+          return;
+        }
+        window.location.href = targetUrl;
+      }
+
+      function closePendingOwnerTab(tabRef) {
+        if (!tabRef || tabRef.closed) return;
+        try {
+          tabRef.close();
+        } catch (error) {
+          // noop
+        }
       }
 
       function openPanelDashboard() {
@@ -1723,34 +1774,44 @@ Nos vemos dentro.`;
 
       ownerLoginForm.addEventListener("submit", (event) => {
         event.preventDefault();
-        unlockPanel();
+        const panelTab = isOwnerPanelPage() ? null : window.open("about:blank", "_blank");
+        unlockPanel(panelTab);
       });
 
-      async function unlockPanel() {
+      async function unlockPanel(panelTab = null) {
         ownerLoginButton.disabled = true;
         const email = configuredOwnerEmail;
         const password = ownerPassword.value;
         if (configError) {
+          closePendingOwnerTab(panelTab);
           panelMessage.textContent = "Activa la conexion del panel antes de usar esta seccion.";
           ownerLoginButton.disabled = false;
           return;
         }
         if (!supabaseClient) {
           if (password !== LOCAL_PANEL_PASSWORD) {
+            closePendingOwnerTab(panelTab);
             panelMessage.textContent = "Clave incorrecta. Intenta nuevamente.";
             ownerLoginButton.disabled = false;
             return;
           }
-          sessionStorage.setItem("olonPanelUnlocked", "true");
+          localStorage.setItem("olonPanelUnlocked", "true");
           panelMessage.textContent = "";
-          panelLogin.style.display = "none";
-          setActiveFilter("pending");
-          openPanelDashboard();
-          await refreshPanel();
+          ownerPassword.value = "";
+          if (isOwnerPanelPage()) {
+            panelLogin.style.display = "none";
+            setActiveFilter("pending");
+            openPanelDashboard();
+            await refreshPanel();
+          } else {
+            openOwnerPanelTab(panelTab);
+            panelMessage.textContent = "Panel abierto en otra pestana.";
+          }
           ownerLoginButton.disabled = false;
           return;
         }
         if (!password) {
+          closePendingOwnerTab(panelTab);
           panelMessage.textContent = "Escribe la clave de acceso.";
           ownerLoginButton.disabled = false;
           return;
@@ -1758,26 +1819,36 @@ Nos vemos dentro.`;
         panelMessage.textContent = "Entrando...";
         const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
         if (error) {
+          closePendingOwnerTab(panelTab);
           panelMessage.textContent = "No se pudo iniciar sesion. Verifica la clave e intenta nuevamente.";
           ownerLoginButton.disabled = false;
           return;
         }
+        ownerPassword.value = "";
         panelMessage.textContent = "";
-        panelLogin.style.display = "none";
-        setActiveFilter("pending");
-        openPanelDashboard();
-        await refreshPanel();
+        if (isOwnerPanelPage()) {
+          panelLogin.style.display = "none";
+          setActiveFilter("pending");
+          openPanelDashboard();
+          await refreshPanel();
+        } else {
+          openOwnerPanelTab(panelTab);
+          panelMessage.textContent = "Panel abierto en otra pestana.";
+        }
         ownerLoginButton.disabled = false;
       }
 
       async function maybeUnlockPanel() {
+        if (!isOwnerPanelPage()) return;
         if (configError) return;
         if (!supabaseClient) {
-          if (sessionStorage.getItem("olonPanelUnlocked") === "true") {
+          if (localStorage.getItem("olonPanelUnlocked") === "true") {
             panelLogin.style.display = "none";
             setActiveFilter("pending");
             openPanelDashboard();
             await refreshPanel();
+          } else {
+            document.getElementById("panel").scrollIntoView({ behavior: "auto", block: "start" });
           }
           return;
         }
@@ -1787,6 +1858,8 @@ Nos vemos dentro.`;
           setActiveFilter("pending");
           openPanelDashboard();
           await refreshPanel();
+        } else {
+          document.getElementById("panel").scrollIntoView({ behavior: "auto", block: "start" });
         }
       }
 
@@ -1798,7 +1871,7 @@ Nos vemos dentro.`;
             // noop
           }
         } else {
-          sessionStorage.removeItem("olonPanelUnlocked");
+          localStorage.removeItem("olonPanelUnlocked");
         }
 
         closePanelOverlay();
@@ -1807,7 +1880,11 @@ Nos vemos dentro.`;
         requestSearch.value = "";
         setActiveFilter("pending");
         panelMessage.textContent = "";
-        document.getElementById("registro").scrollIntoView({ behavior: "smooth", block: "start" });
+        if (isOwnerPanelPage()) {
+          document.getElementById("panel").scrollIntoView({ behavior: "smooth", block: "start" });
+        } else {
+          document.getElementById("registro").scrollIntoView({ behavior: "smooth", block: "start" });
+        }
       }
 
       function formatDate(value) {
