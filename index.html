@@ -713,11 +713,102 @@
       }
 
       .panel-dashboard {
+        position: fixed;
+        inset: 0;
+        z-index: 70;
         display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 28px;
+        background: rgba(5, 16, 29, 0.78);
+        backdrop-filter: blur(16px);
       }
 
       .panel-dashboard.open {
-        display: block;
+        display: flex;
+      }
+
+      .panel-modal-card {
+        width: min(1320px, 100%);
+        max-height: min(90vh, 980px);
+        overflow: hidden;
+        border: 1px solid rgba(247, 214, 107, 0.22);
+        border-radius: 30px;
+        color: var(--white);
+        background: linear-gradient(145deg, rgba(232, 185, 63, 0.12), transparent 42%), linear-gradient(160deg, var(--navy-900), var(--navy-950));
+        box-shadow: 0 34px 90px rgba(0, 0, 0, 0.4);
+      }
+
+      .panel-modal-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 28px 30px 22px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .panel-modal-brand {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+      }
+
+      .panel-modal-brand img {
+        width: 52px;
+        height: 52px;
+        object-fit: contain;
+        filter: drop-shadow(0 8px 18px rgba(232, 185, 63, 0.2));
+      }
+
+      .panel-modal-copy h3 {
+        margin-bottom: 8px;
+        font-size: clamp(1.6rem, 3vw, 2.35rem);
+      }
+
+      .panel-modal-copy p {
+        max-width: 60ch;
+        color: rgba(255, 255, 255, 0.68);
+        line-height: 1.62;
+      }
+
+      .panel-modal-kicker {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 12px;
+        color: var(--gold-300);
+        font-family: "Sora", sans-serif;
+        font-size: 0.76rem;
+        font-weight: 900;
+        text-transform: uppercase;
+      }
+
+      .panel-modal-kicker::before {
+        content: "";
+        width: 9px;
+        height: 9px;
+        border-radius: 999px;
+        background: var(--gold-500);
+        box-shadow: 0 0 0 5px rgba(232, 185, 63, 0.14);
+      }
+
+      .panel-close {
+        width: 46px;
+        height: 46px;
+        flex: 0 0 auto;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        border-radius: 999px;
+        color: var(--white);
+        background: rgba(255, 255, 255, 0.08);
+        font-size: 1.5rem;
+        line-height: 1;
+      }
+
+      .panel-modal-body {
+        max-height: calc(min(90vh, 980px) - 132px);
+        overflow: auto;
+        padding: 24px 30px 30px;
       }
 
       .panel-stats {
@@ -779,18 +870,18 @@
       .panel-segments {
         display: flex;
         flex-wrap: wrap;
-        gap: 8px;
+        gap: 10px;
       }
 
       .segment {
-        min-height: 42px;
-        padding: 0 14px;
+        min-height: 44px;
+        padding: 0 18px;
         border: 1px solid rgba(255, 255, 255, 0.14);
         border-radius: 999px;
         color: rgba(255, 255, 255, 0.72);
         background: rgba(255, 255, 255, 0.07);
         font-family: "Sora", sans-serif;
-        font-size: 0.78rem;
+        font-size: 0.8rem;
         font-weight: 900;
       }
 
@@ -814,6 +905,11 @@
         border-color: rgba(255, 255, 255, 0.12);
         background: rgba(255, 255, 255, 0.08);
         box-shadow: none;
+      }
+
+      .request-card.is-accepted {
+        border-color: rgba(11, 118, 134, 0.42);
+        background: linear-gradient(145deg, rgba(11, 118, 134, 0.18), rgba(255, 255, 255, 0.08));
       }
 
       .request-head {
@@ -970,6 +1066,18 @@
         .form-aside {
           position: static;
         }
+
+        .panel-dashboard {
+          padding: 18px;
+        }
+
+        .panel-modal-header {
+          padding: 24px 24px 18px;
+        }
+
+        .panel-modal-body {
+          padding: 20px 24px 24px;
+        }
       }
 
       @media (max-width: 680px) {
@@ -1013,6 +1121,32 @@
 
         .aside-top, .registration-form, .panel-login {
           padding: 22px;
+        }
+
+        .panel-dashboard {
+          padding: 12px;
+        }
+
+        .panel-modal-card {
+          max-height: 92vh;
+          border-radius: 22px;
+        }
+
+        .panel-modal-brand {
+          align-items: center;
+        }
+
+        .panel-modal-header {
+          padding: 18px 18px 14px;
+        }
+
+        .panel-modal-copy h3 {
+          font-size: 1.45rem;
+        }
+
+        .panel-modal-body {
+          max-height: calc(92vh - 108px);
+          padding: 16px 18px 20px;
         }
 
         footer {
@@ -1147,7 +1281,7 @@
             </div>
 
             <div class="form-submit">
-              <p>Al enviar, el perfil queda disponible en el panel interno.</p>
+              <p>Al enviar tu solicitud, nuestro equipo revisara tu perfil y te escribira por WhatsApp si tu acceso es aprobado.</p>
               <button class="btn-primary" type="submit"><span class="btn-icon">+</span> Enviar solicitud</button>
             </div>
             <p class="form-message" id="formMessage"></p>
@@ -1174,25 +1308,41 @@
           <p class="panel-message" id="panelMessage"></p>
         </div>
 
-        <div class="panel-dashboard" id="panelDashboard">
-          <div class="panel-stats" aria-label="Resumen de solicitudes">
-            <div class="panel-stat"><strong id="totalCount">0</strong><span>Total</span></div>
-            <div class="panel-stat"><strong id="pendingCount">0</strong><span>Pendientes</span></div>
-            <div class="panel-stat"><strong id="acceptedCount">0</strong><span>Aceptadas</span></div>
-          </div>
-
-          <div class="panel-tools">
-            <div class="panel-search"><label for="requestSearch">Buscar</label><input id="requestSearch" type="search" placeholder="Nombre, email, WhatsApp o pais" /></div>
-            <div class="panel-segments" role="group" aria-label="Estado">
-              <button class="segment active" type="button" data-filter="all">Todas</button>
-              <button class="segment" type="button" data-filter="pending">Pendientes</button>
-              <button class="segment" type="button" data-filter="accepted">Aceptadas</button>
+        <div class="panel-dashboard" id="panelDashboard" aria-hidden="true">
+          <div class="panel-modal-card" role="dialog" aria-modal="true" aria-labelledby="panelModalTitle">
+            <div class="panel-modal-header">
+              <div class="panel-modal-brand">
+                <img src="assets/olon-mark.png" alt="Logo Olon Society Academy" />
+                <div class="panel-modal-copy">
+                  <span class="panel-modal-kicker">Revision privada</span>
+                  <h3 id="panelModalTitle">Gestion de solicitudes</h3>
+                  <p>Revisa primero las pendientes, mueve a aceptadas cuando corresponda y comparte el acceso por WhatsApp sin salir del panel.</p>
+                </div>
+              </div>
+              <button class="panel-close" type="button" id="panelCloseButton" aria-label="Cerrar panel">&times;</button>
             </div>
-            <button class="btn-light" type="button" id="exportButton">Exportar</button>
-            <button class="btn-secondary" type="button" id="panelExitButton">Salir</button>
-          </div>
 
-          <div class="requests-list" id="requestsList" aria-live="polite"></div>
+            <div class="panel-modal-body">
+              <div class="panel-stats" aria-label="Resumen de solicitudes">
+                <div class="panel-stat"><strong id="totalCount">0</strong><span>Total</span></div>
+                <div class="panel-stat"><strong id="pendingCount">0</strong><span>Pendientes</span></div>
+                <div class="panel-stat"><strong id="acceptedCount">0</strong><span>Aceptadas</span></div>
+              </div>
+
+              <div class="panel-tools">
+                <div class="panel-search"><label for="requestSearch">Buscar</label><input id="requestSearch" type="search" placeholder="Nombre, email, WhatsApp o pais" /></div>
+                <div class="panel-segments" role="tablist" aria-label="Estado de solicitudes">
+                  <button class="segment active" type="button" data-filter="pending" role="tab" aria-selected="true">Pendientes</button>
+                  <button class="segment" type="button" data-filter="accepted" role="tab" aria-selected="false">Aceptadas</button>
+                  <button class="segment" type="button" data-filter="all" role="tab" aria-selected="false">Todas</button>
+                </div>
+                <button class="btn-light" type="button" id="exportButton">Exportar</button>
+                <button class="btn-secondary" type="button" id="panelExitButton">Salir</button>
+              </div>
+
+              <div class="requests-list" id="requestsList" aria-live="polite"></div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -1200,7 +1350,6 @@
     <section id="contacto">
       <div class="section-inner">
         <div class="section-header">
-          <span class="section-tag">Contacto</span>
           <h2 class="section-title">Olon Society Academy</h2>
           <p class="section-sub">El contacto principal de la academia se mantiene disponible para orientacion directa.</p>
         </div>
@@ -1216,7 +1365,7 @@
         <img src="assets/olon-footer-logo.png" alt="Logo Olon Society Academy" />
         <span>Olon <span>Society Academy</span></span>
       </a>
-      <p>© 2026 Olon Society Academy. Todos los derechos reservados.</p>
+      <p>&copy; 2026 Olon Society Academy. Todos los derechos reservados.</p>
       <div class="footer-links">
         <a href="#registro">Registro</a>
         <a href="#panel">Panel</a>
@@ -1253,19 +1402,19 @@
 
     <script>
       const STORAGE_KEY = "olonPortalRequests";
-      const WHATSAPP_MESSAGE = ` Bienvenido/a a Olon Society Academy, Tu Solicitud ha sido aprobada.
+      const WHATSAPP_MESSAGE = `Bienvenido(a) a Olon Society Academy. Tu solicitud ha sido aprobada.
 
-Donde el trading no es lo que parece… y muchos lo complican más de lo necesario. Aquí te enseñamos a verlo de forma clara, estructurada y profesional.
-
- Accede al grupo aquí:
+Accede al grupo aqui:
 https://chat.whatsapp.com/CJ7xwOU2s1262iiYbSSoPy?mode=gi_t
 
- Nota importante:
-No te pedimos dinero para invertir por ti. Nosotros enseñamos.
+Dentro del grupo recibiras los proximos pasos, orientacion inicial y el acceso correspondiente segun tu perfil.
 
-Si recibes algún mensaje en nuestro nombre solicitando dinero, por favor repórtalo de inmediato.
+Nota importante:
+No te pedimos dinero para invertir por ti. Nosotros ensenamos.
 
-Nos vemos dentro `;
+Si recibes algun mensaje en nuestro nombre solicitando dinero, por favor reportalo de inmediato.
+
+Nos vemos dentro.`;
       const LOCAL_PANEL_PASSWORD = "nolofx";
       const navbar = document.getElementById("navbar");
       const mobileMenu = document.getElementById("mobileMenu");
@@ -1282,6 +1431,7 @@ Nos vemos dentro `;
       const requestTemplate = document.getElementById("requestTemplate");
       const exportButton = document.getElementById("exportButton");
       const panelExitButton = document.getElementById("panelExitButton");
+      const panelCloseButton = document.getElementById("panelCloseButton");
       const filterButtons = Array.from(document.querySelectorAll("[data-filter]"));
       const totalCount = document.getElementById("totalCount");
       const pendingCount = document.getElementById("pendingCount");
@@ -1298,7 +1448,7 @@ Nos vemos dentro `;
           window.supabase
       );
       const supabaseClient = isSupabaseReady ? window.supabase.createClient(supabaseConfig.url, supabaseConfig.anonKey) : null;
-      let activeFilter = "all";
+      let activeFilter = "pending";
       let panelRequests = [];
 
       window.addEventListener("scroll", () => {
@@ -1317,8 +1467,32 @@ Nos vemos dentro `;
         document.body.style.overflow = "";
       }
 
+      function openPanelDashboard() {
+        panelDashboard.classList.add("open");
+        panelDashboard.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+        setTimeout(() => requestSearch.focus(), 0);
+      }
+
+      function closePanelOverlay() {
+        panelDashboard.classList.remove("open");
+        panelDashboard.setAttribute("aria-hidden", "true");
+        document.body.style.overflow = "";
+      }
+
+      function setActiveFilter(filter) {
+        activeFilter = filter;
+        filterButtons.forEach((button) => {
+          const isActive = button.dataset.filter === filter;
+          button.classList.toggle("active", isActive);
+          button.setAttribute("aria-selected", isActive ? "true" : "false");
+        });
+      }
+
       document.addEventListener("keydown", (event) => {
-        if (event.key === "Escape") closeMobileMenu();
+        if (event.key !== "Escape") return;
+        closeMobileMenu();
+        if (panelDashboard.classList.contains("open")) closePanel();
       });
 
       document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
@@ -1570,8 +1744,10 @@ Nos vemos dentro `;
           sessionStorage.setItem("olonPanelUnlocked", "true");
           panelMessage.textContent = "";
           panelLogin.style.display = "none";
-          panelDashboard.classList.add("open");
+          setActiveFilter("pending");
+          openPanelDashboard();
           await refreshPanel();
+          ownerLoginButton.disabled = false;
           return;
         }
         if (!password) {
@@ -1588,8 +1764,10 @@ Nos vemos dentro `;
         }
         panelMessage.textContent = "";
         panelLogin.style.display = "none";
-        panelDashboard.classList.add("open");
+        setActiveFilter("pending");
+        openPanelDashboard();
         await refreshPanel();
+        ownerLoginButton.disabled = false;
       }
 
       async function maybeUnlockPanel() {
@@ -1597,7 +1775,8 @@ Nos vemos dentro `;
         if (!supabaseClient) {
           if (sessionStorage.getItem("olonPanelUnlocked") === "true") {
             panelLogin.style.display = "none";
-            panelDashboard.classList.add("open");
+            setActiveFilter("pending");
+            openPanelDashboard();
             await refreshPanel();
           }
           return;
@@ -1605,7 +1784,8 @@ Nos vemos dentro `;
         const { data } = await supabaseClient.auth.getSession();
         if (data.session) {
           panelLogin.style.display = "none";
-          panelDashboard.classList.add("open");
+          setActiveFilter("pending");
+          openPanelDashboard();
           await refreshPanel();
         }
       }
@@ -1621,9 +1801,11 @@ Nos vemos dentro `;
           sessionStorage.removeItem("olonPanelUnlocked");
         }
 
-        panelDashboard.classList.remove("open");
+        closePanelOverlay();
         panelLogin.style.display = "";
         ownerPassword.value = "";
+        requestSearch.value = "";
+        setActiveFilter("pending");
         panelMessage.textContent = "";
         document.getElementById("registro").scrollIntoView({ behavior: "smooth", block: "start" });
       }
@@ -1711,6 +1893,7 @@ Nos vemos dentro `;
         setText(node, ".request-experience", trading.experienceLevel);
         setText(node, ".request-capital", financial.availableCapital);
         setText(node, ".request-interest", joinValues(program.accessInterest));
+        node.classList.toggle("is-accepted", isAccepted);
         const status = node.querySelector(".request-status");
         status.textContent = isAccepted ? "Aceptada" : "Pendiente";
         status.classList.toggle("accepted", isAccepted);
@@ -1753,7 +1936,13 @@ Nos vemos dentro `;
         if (!filtered.length) {
           const empty = document.createElement("div");
           empty.className = "empty-state";
-          empty.textContent = "No hay solicitudes para mostrar.";
+          if (activeFilter === "pending") {
+            empty.textContent = "No hay solicitudes pendientes en este momento.";
+          } else if (activeFilter === "accepted") {
+            empty.textContent = "Todavia no hay solicitudes aceptadas.";
+          } else {
+            empty.textContent = "No hay solicitudes para mostrar.";
+          }
           requestsList.append(empty);
           return;
         }
@@ -1777,8 +1966,7 @@ Nos vemos dentro `;
       requestSearch.addEventListener("input", renderPanel);
       filterButtons.forEach((button) => {
         button.addEventListener("click", () => {
-          activeFilter = button.dataset.filter;
-          filterButtons.forEach((item) => item.classList.toggle("active", item === button));
+          setActiveFilter(button.dataset.filter);
           renderPanel();
         });
       });
@@ -1796,8 +1984,13 @@ Nos vemos dentro `;
       });
 
       panelExitButton.addEventListener("click", closePanel);
+      panelCloseButton.addEventListener("click", closePanel);
+      panelDashboard.addEventListener("click", (event) => {
+        if (event.target === panelDashboard) closePanel();
+      });
 
       maybeUnlockPanel();
     </script>
   </body>
 </html>
+
