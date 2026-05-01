@@ -1,48 +1,2118 @@
 <!doctype html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Olon Society Academy | Solicitud Premium</title>
-<link rel="icon" href="assets/favicon.png" />
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800;900&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
-<script src="supabase-config.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<style>
-*{box-sizing:border-box;margin:0;padding:0} :root{--bg:#040812;--card:#0c1728;--card2:#101f35;--line:rgba(255,255,255,.12);--gold:#f4c76d;--gold2:#d59a2b;--txt:#fff;--muted:rgba(255,255,255,.66);--green:#19c39a;--red:#ef5260;--r:28px;--shadow:0 34px 100px rgba(0,0,0,.44)} html{scroll-behavior:smooth} body{min-height:100vh;color:var(--txt);font-family:"DM Sans",sans-serif;background:radial-gradient(circle at 20% 0%,rgba(244,199,109,.18),transparent 30%),radial-gradient(circle at 90% 30%,rgba(75,133,255,.14),transparent 28%),linear-gradient(135deg,#040812,#081326 52%,#03050b);overflow-x:hidden} body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.23;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:55px 55px;mask-image:linear-gradient(#000,transparent 85%)} h1,h2,h3,.brand,.btn,.num{font-family:Sora,sans-serif} a{color:inherit;text-decoration:none} button,input,select,textarea{font:inherit}button{cursor:pointer}.wrap{position:relative;z-index:1;min-height:100vh;display:grid;grid-template-columns:.92fr 1.08fr}.left{position:sticky;top:0;height:100vh;padding:34px;display:flex;flex-direction:column;justify-content:space-between;border-right:1px solid var(--line);background:linear-gradient(180deg,rgba(255,255,255,.075),rgba(255,255,255,.02));backdrop-filter:blur(18px)}.brand{display:flex;align-items:center;gap:14px;font-weight:900}.brand img{width:54px;height:54px;object-fit:contain;filter:drop-shadow(0 12px 25px rgba(244,199,109,.22))}.mark{display:grid;place-items:center;width:54px;height:54px;border-radius:18px;color:#07101d;background:linear-gradient(135deg,var(--gold),var(--gold2));font-weight:900}.brand small{display:block;color:var(--muted);font-family:"DM Sans";font-weight:700}.hero{max-width:560px}.kicker{display:inline-flex;gap:10px;align-items:center;margin-bottom:20px;padding:9px 14px;border:1px solid rgba(244,199,109,.26);border-radius:999px;color:#ffe6a7;background:rgba(244,199,109,.08);font-size:.76rem;font-weight:900;text-transform:uppercase}.kicker:before{content:"";width:8px;height:8px;border-radius:99px;background:var(--gold);box-shadow:0 0 0 7px rgba(244,199,109,.14)}h1{font-size:clamp(2.6rem,5.8vw,5.8rem);line-height:.96;letter-spacing:-.075em}h1 span{color:var(--gold)}.hero p{margin-top:24px;color:var(--muted);font-size:1.06rem;line-height:1.75}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:30px}.mini{padding:15px;border:1px solid var(--line);border-radius:20px;background:rgba(255,255,255,.06)}.mini strong{display:block;color:var(--gold);font-family:Sora;font-size:1.15rem}.mini span{display:block;margin-top:5px;color:var(--muted);font-size:.78rem;font-weight:900;text-transform:uppercase}.foot{display:flex;justify-content:space-between;gap:12px;color:rgba(255,255,255,.5);font-size:.86rem}.foot a{color:var(--gold);font-weight:900}.right{display:grid;align-items:center;min-height:100vh;padding:34px}.app{width:min(760px,100%);margin:auto;border:1px solid var(--line);border-radius:var(--r);background:linear-gradient(155deg,rgba(16,31,53,.96),rgba(9,17,31,.94));box-shadow:var(--shadow);overflow:hidden;backdrop-filter:blur(22px)}.top{padding:24px 26px;display:flex;justify-content:space-between;gap:16px;border-bottom:1px solid var(--line)}.top h2{font-size:1.18rem}.top p{margin-top:4px;color:var(--muted);font-size:.88rem}.pill{flex:0 0 auto;padding:10px 14px;border:1px solid rgba(244,199,109,.24);border-radius:999px;color:var(--gold);background:rgba(244,199,109,.08);font-weight:900;font-size:.82rem}.bar{height:7px;background:rgba(255,255,255,.08)}.fill{height:100%;width:16.66%;background:linear-gradient(90deg,var(--gold),var(--gold2));transition:.32s ease}form{padding:28px}.step{display:none;animation:rise .28s ease}.step.active{display:block}@keyframes rise{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}.head{display:flex;gap:16px;margin-bottom:24px}.num{display:grid;place-items:center;width:52px;height:52px;flex:0 0 auto;border-radius:18px;color:#08101e;background:linear-gradient(135deg,var(--gold),var(--gold2));font-weight:900}.head h3{font-size:clamp(1.55rem,3vw,2.2rem);line-height:1.05;letter-spacing:-.05em}.head p{margin-top:8px;color:var(--muted);line-height:1.55}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.field,.choiceblock{display:grid;gap:8px}.full{grid-column:1/-1}label,.legend{color:rgba(255,255,255,.86);font-weight:900;font-size:.84rem}input,select,textarea{width:100%;min-height:54px;border:1px solid rgba(255,255,255,.12);border-radius:16px;color:white;background:rgba(255,255,255,.07);padding:13px 15px;outline:none}select option{color:#111827}textarea{min-height:138px;resize:vertical;line-height:1.55}input:focus,select:focus,textarea:focus{border-color:rgba(244,199,109,.72);box-shadow:0 0 0 4px rgba(244,199,109,.13);background:rgba(255,255,255,.1)}.choices{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.choice{display:flex;align-items:center;gap:10px;min-height:54px;padding:13px 14px;border:1px solid rgba(255,255,255,.12);border-radius:16px;background:rgba(255,255,255,.06);color:rgba(255,255,255,.78);font-weight:800}.choice input{width:auto;min-height:auto;accent-color:var(--gold)}.choice:has(input:checked){border-color:rgba(244,199,109,.62);background:rgba(244,199,109,.12);color:#fff}.nav{display:flex;justify-content:space-between;gap:14px;margin-top:28px;padding-top:22px;border-top:1px solid var(--line)}.btn{min-height:52px;display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:13px 20px;border:0;border-radius:999px;font-size:.88rem;font-weight:900;transition:.22s}.btn:hover{transform:translateY(-2px)}.primary{color:#07101d;background:linear-gradient(135deg,var(--gold),var(--gold2));box-shadow:0 18px 34px rgba(244,199,109,.19)}.ghost{color:white;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.07)}.danger{color:white;background:var(--red)}.green{color:#03130f;background:var(--green)}.btn:disabled{opacity:.55;cursor:not-allowed;transform:none}.msg{display:none;margin-top:16px;padding:14px 16px;border:1px solid rgba(244,199,109,.25);border-radius:16px;color:#ffe7a4;background:rgba(244,199,109,.08);line-height:1.5}.msg.open{display:block}.summary{display:grid;gap:10px}.sum{display:grid;grid-template-columns:160px 1fr;gap:12px;padding:13px;border:1px solid rgba(255,255,255,.1);border-radius:16px;background:rgba(255,255,255,.055)}.sum span{color:var(--gold);font-size:.76rem;font-weight:900;text-transform:uppercase}.sum p{color:rgba(255,255,255,.78);overflow-wrap:anywhere}.panel{display:none;position:relative;z-index:1;min-height:100vh;padding:34px}.owner .wrap{display:none}.owner .panel{display:block}.panelcard{width:min(1180px,100%);margin:auto;border:1px solid var(--line);border-radius:var(--r);background:linear-gradient(155deg,rgba(16,31,53,.96),rgba(9,17,31,.94));box-shadow:var(--shadow);overflow:hidden}.paneltop{display:flex;justify-content:space-between;gap:16px;align-items:center;padding:24px;border-bottom:1px solid var(--line)}.login{width:min(560px,100%);margin:70px auto;padding:26px;border:1px solid var(--line);border-radius:24px;background:rgba(255,255,255,.06)}.login p{margin:10px 0 18px;color:var(--muted);line-height:1.6}.loginrow{display:grid;grid-template-columns:1fr auto;gap:10px}.dash{display:none;padding:24px}.dash.open{display:block}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}.stat{padding:18px;border:1px solid var(--line);border-radius:20px;background:rgba(255,255,255,.06)}.stat strong{display:block;color:var(--gold);font-family:Sora;font-size:2rem}.stat span{color:var(--muted);font-size:.78rem;font-weight:900;text-transform:uppercase}.tools{display:grid;grid-template-columns:1fr auto auto auto;gap:10px;margin-bottom:16px}.segments{display:flex;gap:8px;flex-wrap:wrap}.segment{min-height:48px;padding:0 16px;border:1px solid var(--line);border-radius:999px;color:var(--muted);background:rgba(255,255,255,.06);font-weight:900}.segment.active{color:#07101d;background:var(--gold);border-color:transparent}.list{display:grid;gap:12px}.req{display:grid;grid-template-columns:1fr auto;gap:14px;padding:18px;border:1px solid var(--line);border-radius:22px;background:rgba(255,255,255,.055)}.req.accepted{border-color:rgba(25,195,154,.45);background:rgba(25,195,154,.08)}.reqtop{display:flex;justify-content:space-between;gap:12px;margin-bottom:14px}.badge{display:inline-flex;align-items:center;min-height:30px;padding:0 11px;border-radius:999px;color:#08101e;background:var(--gold);font-weight:900;font-size:.76rem}.badge.accepted{background:var(--green)}.infogrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.info{padding:12px;border:1px solid rgba(255,255,255,.09);border-radius:15px;background:rgba(255,255,255,.045)}.info span{display:block;color:var(--gold);font-size:.72rem;font-weight:900;text-transform:uppercase}.info p{margin-top:5px;color:rgba(255,255,255,.78);overflow-wrap:anywhere}.actions{display:grid;align-content:start;gap:8px;min-width:138px}.empty{padding:28px;text-align:center;border:1px dashed rgba(255,255,255,.18);border-radius:20px;color:var(--muted)}@media(max-width:980px){.wrap{grid-template-columns:1fr}.left{position:relative;height:auto;min-height:520px}.right{padding-top:0}.tools,.req{grid-template-columns:1fr}}@media(max-width:680px){.left,.right,.panel{padding:16px}.top,.paneltop{display:grid}.grid,.choices,.cards,.stats,.infogrid{grid-template-columns:1fr}form{padding:20px}.nav{display:grid}.btn{width:100%}h1{font-size:2.8rem}.sum{grid-template-columns:1fr}.loginrow{grid-template-columns:1fr}}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Olon Society Academy - Solicitud privada de acceso estilo Typeform premium." />
+  <title>Olon Society Academy | Aplicación Premium</title>
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <link rel="apple-touch-icon" href="assets/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800;900&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
+  <script>
+// Configuración opcional de Supabase.
+// Si no conectas Supabase, el sistema guardará solicitudes en localStorage del navegador.
+// Para conectar Supabase, reemplaza estos valores por la URL y anon public key de tu proyecto.
+
+window.OLON_SUPABASE = {
+  url: "PASTE_SUPABASE_URL_HERE",
+  anonKey: "PASTE_SUPABASE_ANON_KEY_HERE"
+};
+
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg: #050913;
+  --panel: rgba(9, 15, 30, 0.78);
+  --panel-strong: rgba(9, 15, 30, 0.94);
+  --card: rgba(255, 255, 255, 0.08);
+  --card-2: rgba(255, 255, 255, 0.12);
+  --line: rgba(255, 255, 255, 0.14);
+  --line-strong: rgba(236, 191, 83, 0.38);
+  --text: #ffffff;
+  --muted: rgba(255, 255, 255, 0.68);
+  --faint: rgba(255, 255, 255, 0.44);
+  --gold: #e8b93f;
+  --gold-2: #ffe08a;
+  --gold-dark: #b57a17;
+  --danger: #ff6871;
+  --success: #34d399;
+  --blue: #38bdf8;
+  --radius: 28px;
+  --shadow: 0 30px 90px rgba(0, 0, 0, 0.42);
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 18% 10%, rgba(232, 185, 63, 0.18), transparent 30%),
+    radial-gradient(circle at 90% 24%, rgba(56, 189, 248, 0.12), transparent 28%),
+    linear-gradient(135deg, #050913, #08101f 55%, #03050b);
+  font-family: "DM Sans", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.app-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -3;
+  overflow: hidden;
+}
+
+.app-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.18;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: linear-gradient(to bottom, black, transparent 82%);
+}
+
+.orb {
+  position: absolute;
+  width: 420px;
+  aspect-ratio: 1;
+  border-radius: 999px;
+  filter: blur(24px);
+  opacity: 0.25;
+}
+
+.orb-one {
+  left: -130px;
+  top: 15%;
+  background: var(--gold);
+}
+
+.orb-two {
+  right: -150px;
+  top: 0;
+  background: #38bdf8;
+}
+
+.orb-three {
+  left: 52%;
+  bottom: -230px;
+  background: #a855f7;
+}
+
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 18px clamp(18px, 5vw, 68px);
+  background: linear-gradient(to bottom, rgba(5, 9, 19, 0.9), transparent);
+  backdrop-filter: blur(16px);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: "Sora", sans-serif;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+}
+
+.brand img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 20px rgba(232, 185, 63, 0.24));
+}
+
+.brand strong {
+  color: var(--gold-2);
+}
+
+.top-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ghost-btn,
+.whatsapp-btn,
+.nav-btn,
+.filter,
+.accept-btn,
+.delete-btn {
+  border: 0;
+  border-radius: 999px;
+  min-height: 46px;
+  padding: 0 18px;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.08);
+  font-family: "Sora", sans-serif;
+  font-size: 0.82rem;
+  font-weight: 900;
+  transition: transform 0.22s ease, background 0.22s ease, box-shadow 0.22s ease;
+}
+
+.ghost-btn {
+  border: 1px solid var(--line);
+}
+
+.whatsapp-btn,
+.nav-btn.next,
+.accept-btn {
+  color: #06101e;
+  background: linear-gradient(135deg, var(--gold-2), var(--gold));
+  box-shadow: 0 14px 34px rgba(232, 185, 63, 0.24);
+}
+
+.nav-btn.back {
+  border: 1px solid var(--line);
+}
+
+.delete-btn {
+  color: #fff;
+  background: rgba(255, 104, 113, 0.18);
+  border: 1px solid rgba(255, 104, 113, 0.35);
+}
+
+.ghost-btn:hover,
+.whatsapp-btn:hover,
+.nav-btn:hover,
+.filter:hover,
+.accept-btn:hover,
+.delete-btn:hover {
+  transform: translateY(-2px);
+}
+
+.typeform-app {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: minmax(320px, 0.85fr) minmax(0, 1.15fr);
+  gap: clamp(24px, 4vw, 56px);
+  padding: 112px clamp(18px, 5vw, 68px) 38px;
+}
+
+.app-side {
+  display: flex;
+  align-items: stretch;
+}
+
+.side-card {
+  position: sticky;
+  top: 106px;
+  align-self: start;
+  width: 100%;
+  min-height: calc(100vh - 150px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(24px, 4vw, 42px);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background:
+    linear-gradient(155deg, rgba(232, 185, 63, 0.18), transparent 42%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.05));
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.side-card::after {
+  content: "";
+  position: absolute;
+  inset: auto -20% -22% 20%;
+  height: 260px;
+  background: radial-gradient(circle, rgba(232, 185, 63, 0.22), transparent 68%);
+  pointer-events: none;
+}
+
+.side-kicker,
+.panel-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 18px;
+  color: var(--gold-2);
+  font-family: "Sora", sans-serif;
+  font-size: 0.76rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.side-kicker::before,
+.panel-kicker::before {
+  content: "";
+  width: 9px;
+  height: 9px;
+  border-radius: 99px;
+  background: var(--gold);
+  box-shadow: 0 0 0 8px rgba(232, 185, 63, 0.13);
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Sora", sans-serif;
+  line-height: 1.06;
+  letter-spacing: -0.05em;
+}
+
+.side-card h1 {
+  max-width: 10ch;
+  margin-bottom: 20px;
+  font-size: clamp(2.7rem, 6vw, 5.5rem);
+}
+
+.side-card p {
+  max-width: 48ch;
+  color: var(--muted);
+  font-size: 1.04rem;
+  line-height: 1.75;
+}
+
+.mini-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 34px 0;
+}
+
+.mini-stats div,
+.stats-grid div {
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.mini-stats strong,
+.stats-grid strong {
+  display: block;
+  color: var(--gold-2);
+  font-family: "Sora", sans-serif;
+  font-size: 1.45rem;
+}
+
+.mini-stats span,
+.stats-grid span {
+  display: block;
+  margin-top: 7px;
+  color: var(--faint);
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.side-note {
+  padding: 18px;
+  border: 1px solid rgba(232, 185, 63, 0.24);
+  border-radius: 20px;
+  background: rgba(232, 185, 63, 0.08);
+}
+
+.side-note span {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--gold-2);
+  font-family: "Sora", sans-serif;
+  font-weight: 900;
+}
+
+.side-note p {
+  font-size: 0.92rem;
+  line-height: 1.58;
+}
+
+.form-stage {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.progress-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 16px;
+}
+
+.progress-label {
+  display: block;
+  margin-bottom: 7px;
+  color: var(--gold-2);
+  font-family: "Sora", sans-serif;
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.progress-wrap h2 {
+  font-size: clamp(1.4rem, 3vw, 2.25rem);
+}
+
+.progress-ring {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+}
+
+.progress-ring svg {
+  position: absolute;
+  inset: 0;
+  transform: rotate(-90deg);
+}
+
+.progress-ring circle {
+  fill: none;
+  stroke-width: 4;
+}
+
+.ring-bg {
+  stroke: rgba(255, 255, 255, 0.12);
+}
+
+.ring-fill {
+  stroke: var(--gold);
+  stroke-linecap: round;
+  stroke-dasharray: 113;
+  stroke-dashoffset: 113;
+  transition: stroke-dashoffset 0.35s var(--ease);
+}
+
+.progress-ring strong {
+  font-family: "Sora", sans-serif;
+  font-size: 0.78rem;
+}
+
+.progress-bar {
+  height: 9px;
+  padding: 2px;
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+  margin-bottom: 18px;
+}
+
+.progress-bar span {
+  display: block;
+  width: 0%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--gold-2), var(--gold));
+  transition: width 0.35s var(--ease);
+}
+
+.question-card {
+  min-height: 580px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(22px, 5vw, 52px);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background:
+    linear-gradient(145deg, rgba(232, 185, 63, 0.08), transparent 38%),
+    rgba(255, 255, 255, 0.075);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(24px);
+  overflow: hidden;
+}
+
+.question-inner {
+  min-height: 390px;
+  animation: fadeUp 0.34s var(--ease) both;
+}
+
+.question-step {
+  display: grid;
+  gap: 18px;
+}
+
+.step-number {
+  color: var(--gold-2);
+  font-family: "Sora", sans-serif;
+  font-size: 0.84rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.question-title {
+  max-width: 14ch;
+  font-size: clamp(2rem, 5.3vw, 4.4rem);
+}
+
+.question-subtitle {
+  max-width: 62ch;
+  color: var(--muted);
+  font-size: 1.02rem;
+  line-height: 1.65;
+}
+
+.input-large,
+.textarea-large,
+.select-large {
+  width: min(100%, 720px);
+  min-height: 66px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.08);
+  outline: none;
+  padding: 16px 18px;
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  transition: border-color 0.22s ease, box-shadow 0.22s ease, background 0.22s ease;
+}
+
+.input-large::placeholder,
+.textarea-large::placeholder {
+  color: rgba(255, 255, 255, 0.36);
+}
+
+.textarea-large {
+  min-height: 170px;
+  resize: vertical;
+  line-height: 1.6;
+}
+
+.select-large {
+  appearance: none;
+  cursor: pointer;
+}
+
+.input-large:focus,
+.textarea-large:focus,
+.select-large:focus {
+  border-color: var(--line-strong);
+  background: rgba(255, 255, 255, 0.11);
+  box-shadow: 0 0 0 5px rgba(232, 185, 63, 0.12);
+}
+
+.options-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  width: min(100%, 760px);
+  gap: 12px;
+}
+
+.option-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 68px;
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.07);
+  font-weight: 900;
+  transition: border-color 0.22s ease, transform 0.22s ease, background 0.22s ease;
+}
+
+.option-card input {
+  accent-color: var(--gold);
+  width: 18px;
+  height: 18px;
+}
+
+.option-card:has(input:checked) {
+  color: var(--text);
+  border-color: var(--line-strong);
+  background: rgba(232, 185, 63, 0.14);
+}
+
+.option-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.26);
+}
+
+.review-card {
+  display: grid;
+  gap: 16px;
+}
+
+.review-card h3 {
+  font-size: clamp(1.8rem, 4vw, 3.4rem);
+}
+
+.review-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.review-grid div,
+.request-grid div,
+.details-grid div {
+  min-width: 0;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.review-grid span,
+.request-grid span,
+.details-grid span {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--gold-2);
+  font-family: "Sora", sans-serif;
+  font-size: 0.72rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.review-grid p,
+.request-grid p,
+.details-grid p {
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}
+
+.nav-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding-top: 26px;
+}
+
+.form-message,
+.panel-message {
+  min-height: 24px;
+  margin-top: 14px;
+  color: var(--gold-2);
+  line-height: 1.45;
+}
+
+.form-message.error,
+.panel-message.error {
+  color: #ffb4ba;
+}
+
+.panel-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(3, 5, 11, 0.72);
+  backdrop-filter: blur(18px);
+}
+
+.panel-overlay.open {
+  display: flex;
+}
+
+.panel-card {
+  position: relative;
+  width: min(1180px, 100%);
+  max-height: 92vh;
+  overflow: auto;
+  padding: clamp(22px, 4vw, 38px);
+  border: 1px solid var(--line);
+  border-radius: 32px;
+  background:
+    linear-gradient(145deg, rgba(232, 185, 63, 0.12), transparent 40%),
+    var(--panel-strong);
+  box-shadow: var(--shadow);
+}
+
+.panel-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.08);
+  font-size: 1.4rem;
+}
+
+.panel-login {
+  width: min(620px, 100%);
+  margin: 0 auto;
+  text-align: center;
+}
+
+.panel-login h2,
+.dashboard-head h2 {
+  font-size: clamp(2rem, 5vw, 3.6rem);
+  margin-bottom: 12px;
+}
+
+.panel-login p {
+  color: var(--muted);
+  line-height: 1.65;
+  margin-bottom: 22px;
+}
+
+.panel-login-form {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+}
+
+.panel-login-form input,
+.panel-tools input {
+  min-height: 52px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.08);
+  padding: 0 18px;
+  outline: none;
+}
+
+.panel-login-form input::placeholder,
+.panel-tools input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.panel-dashboard {
+  display: none;
+}
+
+.panel-dashboard.open {
+  display: block;
+}
+
+.dashboard-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.dashboard-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.panel-tools {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.filters {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.filter.active {
+  color: #06101e;
+  background: var(--gold);
+}
+
+.requests-list {
+  display: grid;
+  gap: 14px;
+}
+
+.request-card {
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.request-card.is-accepted {
+  border-color: rgba(52, 211, 153, 0.34);
+  background: rgba(52, 211, 153, 0.08);
+}
+
+.request-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.request-date {
+  display: block;
+  color: var(--faint);
+  font-size: 0.76rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.request-name {
+  font-size: 1.35rem;
+}
+
+.request-status {
+  align-self: start;
+  min-height: 30px;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 0 12px;
+  color: #06101e;
+  background: var(--gold);
+  font-size: 0.76rem;
+  font-weight: 900;
+}
+
+.request-status.accepted {
+  color: #06101e;
+  background: var(--success);
+}
+
+.request-grid,
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.full-profile {
+  margin-top: 14px;
+}
+
+.full-profile summary {
+  color: var(--gold-2);
+  font-family: "Sora", sans-serif;
+  font-weight: 900;
+  cursor: pointer;
+  margin-bottom: 12px;
+}
+
+.request-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+
+.empty-state {
+  padding: 30px;
+  border: 1px dashed var(--line);
+  border-radius: 24px;
+  color: var(--muted);
+  text-align: center;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.99);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 980px) {
+  .typeform-app {
+    grid-template-columns: 1fr;
+    padding-top: 98px;
+  }
+
+  .side-card {
+    position: relative;
+    top: auto;
+    min-height: auto;
+  }
+
+  .side-card h1 {
+    max-width: 16ch;
+  }
+
+  .question-card {
+    min-height: 560px;
+  }
+
+  .panel-tools,
+  .dashboard-head {
+    grid-template-columns: 1fr;
+    flex-direction: column;
+  }
+
+  .request-grid,
+  .details-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 680px) {
+  .topbar {
+    padding: 14px;
+  }
+
+  .brand span {
+    display: none;
+  }
+
+  .top-actions {
+    gap: 7px;
+  }
+
+  .ghost-btn,
+  .whatsapp-btn {
+    min-height: 42px;
+    padding-inline: 12px;
+    font-size: 0.74rem;
+  }
+
+  .typeform-app {
+    padding: 84px 14px 22px;
+    gap: 16px;
+  }
+
+  .side-card,
+  .question-card,
+  .panel-card {
+    border-radius: 24px;
+  }
+
+  .side-card {
+    padding: 22px;
+  }
+
+  .side-card h1 {
+    font-size: 2.35rem;
+  }
+
+  .mini-stats,
+  .stats-grid,
+  .options-grid,
+  .review-grid,
+  .request-grid,
+  .details-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .question-card {
+    min-height: 600px;
+    padding: 22px;
+  }
+
+  .question-title {
+    font-size: 2.25rem;
+  }
+
+  .nav-row,
+  .panel-login-form {
+    grid-template-columns: 1fr;
+    display: grid;
+  }
+
+  .nav-btn {
+    width: 100%;
+  }
+
+  .progress-ring {
+    width: 58px;
+    height: 58px;
+  }
+
+  .panel-overlay {
+    padding: 10px;
+  }
+
+  .panel-card {
+    max-height: 94vh;
+    padding: 20px;
+  }
+
+  .panel-close {
+    top: 12px;
+    right: 12px;
+  }
+}
+
+
+.thanks-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(3, 5, 11, 0.78);
+  backdrop-filter: blur(22px);
+}
+
+.thanks-overlay.open {
+  display: flex;
+}
+
+.thanks-card {
+  width: min(620px, 100%);
+  padding: clamp(26px, 6vw, 54px);
+  border: 1px solid rgba(236, 191, 83, 0.38);
+  border-radius: 32px;
+  text-align: center;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(232, 185, 63, 0.20), transparent 42%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.06)),
+    #07101f;
+  box-shadow: 0 34px 110px rgba(0, 0, 0, 0.48);
+  animation: fadeUp 0.34s var(--ease) both;
+}
+
+.thanks-icon {
+  width: 82px;
+  height: 82px;
+  display: grid;
+  place-items: center;
+  margin: 0 auto 22px;
+  border-radius: 999px;
+  color: #06101e;
+  background: linear-gradient(135deg, var(--gold-2), var(--gold));
+  font-family: "Sora", sans-serif;
+  font-size: 2.2rem;
+  font-weight: 900;
+  box-shadow: 0 18px 44px rgba(232, 185, 63, 0.28);
+}
+
+.thanks-kicker {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+  color: var(--gold-2);
+  font-family: "Sora", sans-serif;
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.thanks-card h2 {
+  margin-bottom: 16px;
+  font-size: clamp(2rem, 5vw, 3.35rem);
+}
+
+.thanks-card p {
+  max-width: 48ch;
+  margin: 0 auto 26px;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.thanks-close {
+  min-width: 180px;
+}
+
+@media (max-width: 680px) {
+  .thanks-card {
+    border-radius: 24px;
+  }
+
+  .thanks-close {
+    width: 100%;
+  }
+}
+
+  </style>
 </head>
 <body>
-<main class="wrap">
-<aside class="left"><a class="brand" href="./"><img src="assets/olon-mark.png" onerror="this.style.display='none'" alt=""><span class="mark">O</span><span>Olon Society<small>Academy Private Access</small></span></a><section class="hero"><span class="kicker">Aplicación privada · Cupos limitados</span><h1>Solicitud de acceso <span>premium</span></h1><p>Completa tu aplicación paso a paso. Nuestro equipo revisará tu perfil y, si eres aprobado, recibirás los próximos pasos por WhatsApp.</p><div class="cards"><div class="mini"><strong>01</strong><span>Perfil</span></div><div class="mini"><strong>02</strong><span>Revisión</span></div><div class="mini"><strong>03</strong><span>Acceso</span></div></div></section><div class="foot"><span>© 2026 Olon Society</span><a href="?view=owner-panel#panel">Panel privado</a></div></aside>
-<section class="right"><div class="app"><div class="top"><div><h2>Formulario de Aplicación</h2><p id="stepLabel">Paso 1 de 6</p></div><div class="pill" id="pill">16%</div></div><div class="bar"><div class="fill" id="fill"></div></div><form id="form">
-<section class="step active" data-title="Información personal"><div class="head"><span class="num">01</span><div><h3>Primero, queremos conocerte.</h3><p>Datos básicos para validar y contactarte.</p></div></div><div class="grid"><div class="field full"><label>Nombre completo</label><input name="fullName" required></div><div class="field"><label>Correo electrónico</label><input name="email" type="email" required></div><div class="field"><label>WhatsApp</label><input name="whatsapp" placeholder="+1 787 000 0000" required></div><div class="field"><label>Edad</label><input name="age" type="number" min="13" max="100" required></div><div class="field"><label>País</label><input name="country" required></div><div class="field"><label>Ciudad / Pueblo</label><input name="city" required></div></div></section>
-<section class="step" data-title="Perfil financiero"><div class="head"><span class="num">02</span><div><h3>Tu situación actual.</h3><p>Esto ayuda a recomendarte el acceso correcto.</p></div></div><div class="grid"><div class="choiceblock full"><span class="legend">¿Actualmente trabajas?</span><div class="choices"><label class="choice"><input type="radio" name="working" value="Sí" required> Sí</label><label class="choice"><input type="radio" name="working" value="No"> No</label></div></div><div class="field"><label>Ingreso mensual aproximado</label><select name="monthlyIncome" required><option value="">Selecciona</option><option>Menos de $1,000</option><option>$1,000 - $3,000</option><option>Más de $3,000</option></select></div><div class="field"><label>Capital disponible</label><select name="availableCapital" required><option value="">Selecciona</option><option>$0 - $100</option><option>$100 - $500</option><option>$500 - $1,000</option><option>Más de $1,000</option></select></div></div></section>
-<section class="step" data-title="Experiencia"><div class="head"><span class="num">03</span><div><h3>Experiencia en trading.</h3><p>Selecciona tu nivel y mercados.</p></div></div><div class="grid"><div class="field full"><label>Nivel de experiencia</label><select name="experienceLevel" required><option value="">Selecciona</option><option>Ninguna</option><option>Básica</option><option>Intermedia</option><option>Avanzada</option></select></div><div class="choiceblock full"><span class="legend">¿Has tenido pérdidas operando?</span><div class="choices"><label class="choice"><input type="radio" name="tradingLosses" value="Sí" required> Sí</label><label class="choice"><input type="radio" name="tradingLosses" value="No"> No</label></div></div><div class="choiceblock full"><span class="legend">Mercados</span><div class="choices"><label class="choice"><input type="checkbox" name="markets" value="Forex"> Forex</label><label class="choice"><input type="checkbox" name="markets" value="Índices"> Índices</label><label class="choice"><input type="checkbox" name="markets" value="Oro XAUUSD"> Oro</label><label class="choice"><input type="checkbox" name="markets" value="Cripto"> Cripto</label></div></div></div></section>
-<section class="step" data-title="Mentalidad"><div class="head"><span class="num">04</span><div><h3>Mentalidad y compromiso.</h3><p>Buscamos personas con disciplina y enfoque.</p></div></div><div class="grid"><div class="field full"><label>¿Por qué deseas aprender trading?</label><textarea name="motivation" required></textarea></div><div class="field"><label>Tiempo semanal disponible</label><select name="weeklyTime" required><option value="">Selecciona</option><option>1 a 5 horas</option><option>5 a 10 horas</option><option>Más de 10 horas</option></select></div><div class="choiceblock"><span class="legend">¿Seguirías reglas?</span><div class="choices"><label class="choice"><input type="radio" name="discipline" value="Sí" required> Sí</label><label class="choice"><input type="radio" name="discipline" value="No"> No</label></div></div></div></section>
-<section class="step" data-title="Objetivos"><div class="head"><span class="num">05</span><div><h3>Tu meta principal.</h3><p>Así entendemos qué orientación necesitas.</p></div></div><div class="grid"><div class="field"><label>Objetivo principal</label><select name="mainGoal" required><option value="">Selecciona</option><option>Generar ingresos adicionales</option><option>Trader a tiempo completo</option><option>Aprender habilidades</option></select></div><div class="field"><label>Plazo esperado</label><select name="resultsTimeline" required><option value="">Selecciona</option><option>1 a 3 meses</option><option>3 a 6 meses</option><option>Más de 6 meses</option></select></div><div class="field"><label>¿Invertirías en educación?</label><select name="investmentIntent" required><option value="">Selecciona</option><option>Sí</option><option>No</option><option>Depende</option></select></div><div class="choiceblock"><span class="legend">Acceso de interés</span><div class="choices"><label class="choice"><input type="checkbox" name="accessInterest" value="Señales VIP"> VIP</label><label class="choice"><input type="checkbox" name="accessInterest" value="Indicador"> Indicador</label><label class="choice"><input type="checkbox" name="accessInterest" value="Mentoría"> Mentoría</label><label class="choice"><input type="checkbox" name="accessInterest" value="Todo"> Todo</label></div></div></div></section>
-<section class="step" data-title="Confirmación"><div class="head"><span class="num">06</span><div><h3>Confirma tu solicitud.</h3><p>Revisa antes de enviar.</p></div></div><div class="summary" id="summary"></div></section>
-<div class="nav"><button class="btn ghost" id="prev" type="button">Atrás</button><button class="btn primary" id="next" type="button">Continuar</button><button class="btn primary" id="submit" type="submit" style="display:none">Enviar solicitud</button></div><p class="msg" id="msg"></p>
-</form></div></section></main>
-<section class="panel" id="panel"><div class="panelcard"><div class="paneltop"><div class="brand"><span class="mark">O</span><span>Olon Society<small>Panel privado</small></span></div><a class="btn ghost" href="./">Volver</a></div><div class="login" id="login"><h2>Acceso privado</h2><p>Revisa solicitudes, acepta perfiles y abre WhatsApp con el mensaje de bienvenida.</p><form class="loginrow" id="loginForm"><input id="pass" type="password" placeholder="Clave de acceso"><button class="btn primary" type="submit">Entrar</button></form><p class="msg" id="panelMsg"></p></div><div class="dash" id="dash"><div class="stats"><div class="stat"><strong id="total">0</strong><span>Total</span></div><div class="stat"><strong id="pend">0</strong><span>Pendientes</span></div><div class="stat"><strong id="acc">0</strong><span>Aceptadas</span></div></div><div class="tools"><input id="search" type="search" placeholder="Buscar solicitud"><div class="segments"><button class="segment active" data-filter="pending">Pendientes</button><button class="segment" data-filter="accepted">Aceptadas</button><button class="segment" data-filter="all">Todas</button></div><button class="btn ghost" id="export" type="button">Exportar</button><button class="btn danger" id="logout" type="button">Salir</button></div><div class="list" id="list"></div></div></div></section>
-<script>
-const KEY='olonPremiumRequests', PASS='nolofx', WA=`Bienvenido(a) a Olon Society Academy. Tu solicitud ha sido aprobada.\n\nAccede al grupo aquí:\nhttps://chat.whatsapp.com/CJ7xwOU2s1262iiYbSSoPy?mode=gi_t\n\nDentro del grupo recibirás los próximos pasos.\n\nNota: No te pedimos dinero para invertir por ti. Nosotros enseñamos.`;
-const form=document.getElementById('form'),steps=[...document.querySelectorAll('.step')],prev=document.getElementById('prev'),next=document.getElementById('next'),sub=document.getElementById('submit'),fill=document.getElementById('fill'),pill=document.getElementById('pill'),stepLabel=document.getElementById('stepLabel'),summary=document.getElementById('summary'),msg=document.getElementById('msg');let step=0,filter='pending',items=[];
-if(new URLSearchParams(location.search).get('view')==='owner-panel')document.body.classList.add('owner');
-const norm=p=>String(p||'').replace(/^00/,'').replace(/\D/g,''),local=()=>{try{return JSON.parse(localStorage.getItem(KEY)||'[]')}catch{return[]}},save=a=>localStorage.setItem(KEY,JSON.stringify(a)),val=n=>form.elements[n]?.value||'',all=n=>[...form.querySelectorAll(`[name="${n}"]:checked`)].map(x=>x.value),show=(e,t,err=false)=>{e.textContent=t;e.classList.add('open');e.style.display='block';e.style.borderColor=err?'rgba(239,82,96,.45)':''};
-function valid(){for(const el of [...steps[step].querySelectorAll('input,select,textarea')].filter(x=>x.required)){if((el.type==='radio'||el.type==='checkbox')&&!form.querySelector(`[name="${el.name}"]:checked`)){el.focus();return false}if(!['radio','checkbox'].includes(el.type)&&!el.checkValidity()){el.reportValidity();return false}}return true}
-function update(){steps.forEach((s,i)=>s.classList.toggle('active',i===step));let pct=Math.round((step+1)/steps.length*100);fill.style.width=pct+'%';pill.textContent=pct+'%';stepLabel.textContent=`Paso ${step+1} de ${steps.length} · ${steps[step].dataset.title}`;prev.disabled=step===0;next.style.display=step===steps.length-1?'none':'inline-flex';sub.style.display=step===steps.length-1?'inline-flex':'none';if(step===steps.length-1)renderSummary()}
-function renderSummary(){let rows=[['Nombre',val('fullName')],['Email',val('email')],['WhatsApp',val('whatsapp')],['Ubicación',`${val('city')}, ${val('country')}`],['Experiencia',val('experienceLevel')],['Capital',val('availableCapital')],['Objetivo',val('mainGoal')],['Interés',all('accessInterest').join(', ')||'No especificado']];summary.innerHTML=rows.map(r=>`<div class="sum"><span>${r[0]}</span><p>${r[1]||'-'}</p></div>`).join('')}
-next.onclick=()=>{if(valid()){step=Math.min(step+1,steps.length-1);update()}};prev.onclick=()=>{step=Math.max(step-1,0);update()};
-function request(){return{id:`OLON-${Date.now().toString(36).toUpperCase()}-${Math.random().toString(36).slice(2,7).toUpperCase()}`,status:'pending',submittedAt:new Date().toISOString(),acceptedAt:null,personal:{fullName:val('fullName'),email:val('email'),whatsapp:val('whatsapp'),cleanWhatsapp:norm(val('whatsapp')),age:val('age'),country:val('country'),city:val('city')},financial:{working:val('working'),monthlyIncome:val('monthlyIncome'),availableCapital:val('availableCapital')},trading:{experienceLevel:val('experienceLevel'),markets:all('markets'),tradingLosses:val('tradingLosses')},mindset:{motivation:val('motivation'),weeklyTime:val('weeklyTime'),discipline:val('discipline')},goals:{mainGoal:val('mainGoal'),resultsTimeline:val('resultsTimeline')},program:{investmentIntent:val('investmentIntent'),accessInterest:all('accessInterest')}}}
-form.onsubmit=e=>{e.preventDefault();if(!valid())return;let r=request();if(r.personal.cleanWhatsapp.length<7)return show(msg,'Verifica el número de WhatsApp.',true);let a=local();a.unshift(r);save(a);form.reset();step=0;update();show(msg,`Solicitud enviada correctamente. Código: ${r.id}`)};
-const login=document.getElementById('login'),dash=document.getElementById('dash'),list=document.getElementById('list'),search=document.getElementById('search');
-document.getElementById('loginForm').onsubmit=e=>{e.preventDefault();if(document.getElementById('pass').value!==PASS)return show(document.getElementById('panelMsg'),'Clave incorrecta.',true);localStorage.setItem('olonPanelUnlocked','true');unlock()};if(document.body.classList.contains('owner')&&localStorage.getItem('olonPanelUnlocked')==='true')unlock();
-function unlock(){login.style.display='none';dash.classList.add('open');refresh()}function refresh(){items=local();render()}function render(){document.getElementById('total').textContent=items.length;document.getElementById('pend').textContent=items.filter(x=>x.status!=='accepted').length;document.getElementById('acc').textContent=items.filter(x=>x.status==='accepted').length;let q=(search.value||'').toLowerCase(),arr=items.filter(x=>filter==='all'||(filter==='accepted'?x.status==='accepted':x.status!=='accepted')).filter(x=>JSON.stringify(x).toLowerCase().includes(q));if(!arr.length){list.innerHTML='<div class="empty">No hay solicitudes en esta vista.</div>';return}list.innerHTML=arr.map(card).join('');list.querySelectorAll('[data-accept]').forEach(b=>b.onclick=()=>{let r=items.find(x=>x.id===b.dataset.accept);r.status='accepted';r.acceptedAt=new Date().toISOString();save(items);window.open(`https://wa.me/${r.personal.cleanWhatsapp}?text=${encodeURIComponent(WA)}`,'_blank');refresh()});list.querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>{if(confirm('¿Eliminar solicitud?')){items=items.filter(x=>x.id!==b.dataset.del);save(items);refresh()}})}
-function card(r){let d=new Date(r.submittedAt).toLocaleString('es-US');return`<article class="req ${r.status==='accepted'?'accepted':''}"><div><div class="reqtop"><div><small style="color:var(--muted);font-weight:900">${d}</small><h3>${r.personal.fullName||'-'}</h3></div><span class="badge ${r.status==='accepted'?'accepted':''}">${r.status==='accepted'?'Aceptada':'Pendiente'}</span></div><div class="infogrid"><div class="info"><span>Email</span><p>${r.personal.email||'-'}</p></div><div class="info"><span>WhatsApp</span><p>${r.personal.whatsapp||'-'}</p></div><div class="info"><span>Ubicación</span><p>${r.personal.city||'-'}, ${r.personal.country||'-'}</p></div><div class="info"><span>Experiencia</span><p>${r.trading.experienceLevel||'-'}</p></div><div class="info"><span>Capital</span><p>${r.financial.availableCapital||'-'}</p></div><div class="info"><span>Interés</span><p>${(r.program.accessInterest||[]).join(', ')||'-'}</p></div></div></div><div class="actions"><button class="btn green" data-accept="${r.id}">Aceptar</button><button class="btn danger" data-del="${r.id}">Eliminar</button></div></article>`}
-document.querySelectorAll('.segment').forEach(b=>b.onclick=()=>{filter=b.dataset.filter;document.querySelectorAll('.segment').forEach(x=>x.classList.toggle('active',x===b));render()});search.oninput=render;document.getElementById('logout').onclick=()=>{localStorage.removeItem('olonPanelUnlocked');location.href='./'};document.getElementById('export').onclick=()=>{let rows=[['Nombre','Email','WhatsApp','Pais','Ciudad','Experiencia','Capital','Estado'],...items.map(r=>[r.personal.fullName,r.personal.email,r.personal.whatsapp,r.personal.country,r.personal.city,r.trading.experienceLevel,r.financial.availableCapital,r.status])],csv=rows.map(row=>row.map(v=>`"${String(v||'').replaceAll('"','""')}"`).join(',')).join('\n'),blob=new Blob([csv],{type:'text/csv'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='solicitudes-olon.csv';a.click();URL.revokeObjectURL(url)};update();
-</script>
+  <div class="app-bg">
+    <span class="orb orb-one"></span>
+    <span class="orb orb-two"></span>
+    <span class="orb orb-three"></span>
+  </div>
+
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="Olon Society Academy">
+      <img src="assets/olon-mark.png" alt="Olon Society Academy" onerror="this.style.display='none'" />
+      <span>Olon <strong>Society</strong></span>
+    </a>
+
+    <div class="top-actions">
+      <button class="ghost-btn" type="button" id="openPanelBtn">Panel privado</button>
+      <a class="whatsapp-btn" href="https://wa.me/17879048668?text=Hola%2C%20quiero%20informacion%20sobre%20Olon%20Society%20Academy" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+    </div>
+  </header>
+
+  <main class="typeform-app">
+    <aside class="app-side">
+      <div class="side-card">
+        <div class="side-kicker">Aplicación privada</div>
+        <h1>Solicita tu acceso a la academia.</h1>
+        <p>Completa el perfil paso a paso. Revisaremos tu información y, si cualificas, recibirás los próximos pasos por WhatsApp.</p>
+
+        <div class="mini-stats">
+          <div><strong>01</strong><span>Perfil</span></div>
+          <div><strong>02</strong><span>Evaluación</span></div>
+          <div><strong>03</strong><span>Acceso</span></div>
+        </div>
+
+        <div class="side-note">
+          <span>Importante</span>
+          <p>No prometemos resultados garantizados. Evaluamos disciplina, compromiso y disponibilidad para aprender.</p>
+        </div>
+      </div>
+    </aside>
+
+    <section class="form-stage" aria-live="polite">
+      <div class="progress-wrap">
+        <div>
+          <span class="progress-label" id="progressLabel">Paso 1 de 15</span>
+          <h2 id="stepCategory">Bienvenida</h2>
+        </div>
+        <div class="progress-ring">
+          <svg viewBox="0 0 44 44" aria-hidden="true">
+            <circle class="ring-bg" cx="22" cy="22" r="18"></circle>
+            <circle class="ring-fill" id="ringFill" cx="22" cy="22" r="18"></circle>
+          </svg>
+          <strong id="progressPercent">0%</strong>
+        </div>
+      </div>
+
+      <div class="progress-bar">
+        <span id="progressBar"></span>
+      </div>
+
+      <form id="typeformForm" class="question-card">
+        <div class="question-inner" id="questionInner"></div>
+
+        <div class="nav-row">
+          <button class="nav-btn back" type="button" id="backBtn">Atrás</button>
+          <button class="nav-btn next" type="button" id="nextBtn">Comenzar</button>
+        </div>
+
+        <p class="form-message" id="formMessage"></p>
+      </form>
+    </section>
+  </main>
+
+
+  <div class="thanks-overlay" id="thanksOverlay" aria-hidden="true">
+    <div class="thanks-card" role="dialog" aria-modal="true" aria-labelledby="thanksTitle">
+      <div class="thanks-icon">✓</div>
+      <span class="thanks-kicker">Solicitud enviada</span>
+      <h2 id="thanksTitle">Gracias, tu solicitud está siendo revisada.</h2>
+      <p>Recibimos tu aplicación correctamente. Nuestro equipo evaluará tu perfil y, si eres aprobado(a), te enviaremos los próximos pasos por WhatsApp.</p>
+      <button class="nav-btn next thanks-close" type="button" id="closeThanksBtn">Cerrar</button>
+    </div>
+  </div>
+
+  <div class="panel-overlay" id="panelOverlay" aria-hidden="true">
+    <div class="panel-card" role="dialog" aria-modal="true" aria-labelledby="panelTitle">
+      <button class="panel-close" type="button" id="closePanelBtn" aria-label="Cerrar panel">&times;</button>
+
+      <div class="panel-login" id="panelLogin">
+        <div class="panel-kicker">Owner panel</div>
+        <h2 id="panelTitle">Panel privado</h2>
+        <p>Revisa solicitudes, exporta datos y acepta estudiantes directamente por WhatsApp.</p>
+
+        <form id="panelLoginForm" class="panel-login-form">
+          <input id="ownerPassword" type="password" placeholder="Clave de acceso" autocomplete="current-password" />
+          <button class="nav-btn next" type="submit">Entrar</button>
+        </form>
+        <p class="panel-message" id="panelMessage"></p>
+      </div>
+
+      <div class="panel-dashboard" id="panelDashboard">
+        <div class="dashboard-head">
+          <div>
+            <div class="panel-kicker">Gestión de solicitudes</div>
+            <h2>Solicitudes recibidas</h2>
+          </div>
+          <div class="dashboard-actions">
+            <button class="ghost-btn" type="button" id="exportBtn">Exportar CSV</button>
+            <button class="ghost-btn" type="button" id="logoutBtn">Salir</button>
+          </div>
+        </div>
+
+        <div class="stats-grid">
+          <div><strong id="totalCount">0</strong><span>Total</span></div>
+          <div><strong id="pendingCount">0</strong><span>Pendientes</span></div>
+          <div><strong id="acceptedCount">0</strong><span>Aceptadas</span></div>
+        </div>
+
+        <div class="panel-tools">
+          <input id="searchRequests" type="search" placeholder="Buscar por nombre, email, WhatsApp o país..." />
+          <div class="filters">
+            <button class="filter active" type="button" data-filter="pending">Pendientes</button>
+            <button class="filter" type="button" data-filter="accepted">Aceptadas</button>
+            <button class="filter" type="button" data-filter="all">Todas</button>
+          </div>
+        </div>
+
+        <div class="requests-list" id="requestsList"></div>
+      </div>
+    </div>
+  </div>
+
+  <template id="requestTemplate">
+    <article class="request-card">
+      <div class="request-top">
+        <div>
+          <span class="request-date"></span>
+          <h3 class="request-name"></h3>
+        </div>
+        <span class="request-status"></span>
+      </div>
+
+      <div class="request-grid">
+        <div><span>Email</span><p class="request-email"></p></div>
+        <div><span>WhatsApp</span><p class="request-whatsapp"></p></div>
+        <div><span>Ubicación</span><p class="request-location"></p></div>
+        <div><span>Experiencia</span><p class="request-experience"></p></div>
+        <div><span>Capital</span><p class="request-capital"></p></div>
+        <div><span>Interés</span><p class="request-interest"></p></div>
+      </div>
+
+      <details class="full-profile">
+        <summary>Ver perfil completo</summary>
+        <div class="details-grid"></div>
+      </details>
+
+      <div class="request-actions">
+        <button class="accept-btn" type="button">Aceptar + WhatsApp</button>
+        <button class="delete-btn" type="button">Eliminar</button>
+      </div>
+    </article>
+  </template>
+
+  <script>
+const STORAGE_KEY = "olonTypeformRequests";
+const LOCAL_PANEL_PASSWORD = "nolofx";
+const WHATSAPP_MESSAGE = `Bienvenido(a) a Olon Society Academy. Tu solicitud ha sido aprobada.
+
+Accede al grupo aqui:
+https://chat.whatsapp.com/CJ7xwOU2s1262iiYbSSoPy?mode=gi_t
+
+Dentro del grupo recibiras los proximos pasos, orientacion inicial y el acceso correspondiente segun tu perfil.
+
+Nota importante:
+No te pedimos dinero para invertir por ti. Nosotros ensenamos.
+
+Si recibes algun mensaje en nuestro nombre solicitando dinero, por favor reportalo de inmediato.
+
+Nos vemos dentro.`;
+
+const supabaseConfig = window.OLON_SUPABASE || {};
+const isSupabaseReady = Boolean(
+  supabaseConfig.url &&
+  supabaseConfig.anonKey &&
+  !String(supabaseConfig.url).includes("PASTE_") &&
+  !String(supabaseConfig.anonKey).includes("PASTE_") &&
+  window.supabase
+);
+
+const supabaseClient = isSupabaseReady
+  ? window.supabase.createClient(supabaseConfig.url, supabaseConfig.anonKey)
+  : null;
+
+const steps = [
+  {
+    type: "welcome",
+    category: "Bienvenida",
+    title: "Comencemos tu aplicación privada.",
+    subtitle: "Te haremos varias preguntas rápidas para conocer tu perfil. Al final podrás revisar todo antes de enviar.",
+  },
+  {
+    key: "fullName",
+    category: "Información personal",
+    title: "¿Cuál es tu nombre completo?",
+    subtitle: "Escribe tu nombre como deseas que aparezca en la revisión.",
+    input: "text",
+    placeholder: "Ejemplo: Kenneth Navarro",
+    required: true,
+  },
+  {
+    key: "email",
+    category: "Información personal",
+    title: "¿Cuál es tu correo electrónico?",
+    subtitle: "Lo usaremos solo para identificar tu solicitud.",
+    input: "email",
+    placeholder: "tuemail@gmail.com",
+    required: true,
+  },
+  {
+    key: "whatsapp",
+    category: "Información personal",
+    title: "¿Cuál es tu número de WhatsApp?",
+    subtitle: "Si tu solicitud es aprobada, te enviaremos el acceso por WhatsApp.",
+    input: "tel",
+    placeholder: "+1 787 000 0000",
+    required: true,
+  },
+  {
+    key: "age",
+    category: "Información personal",
+    title: "¿Qué edad tienes?",
+    subtitle: "Esto nos ayuda a evaluar mejor el perfil de entrada.",
+    input: "number",
+    placeholder: "Ejemplo: 24",
+    required: true,
+  },
+  {
+    key: "location",
+    category: "Ubicación",
+    title: "¿Dónde resides?",
+    subtitle: "Escribe país y ciudad o pueblo.",
+    input: "text",
+    placeholder: "Ejemplo: Puerto Rico, Mayagüez",
+    required: true,
+  },
+  {
+    key: "working",
+    category: "Perfil financiero",
+    title: "¿Actualmente estás trabajando?",
+    subtitle: "Selecciona la opción que mejor describa tu situación actual.",
+    input: "radio",
+    required: true,
+    options: ["Sí", "No", "Trabajo por cuenta propia"],
+  },
+  {
+    key: "monthlyIncome",
+    category: "Perfil financiero",
+    title: "¿Cuál es tu ingreso mensual aproximado?",
+    subtitle: "Esta información ayuda a recomendarte un acceso realista.",
+    input: "radio",
+    required: true,
+    options: ["Menos de $1,000", "$1,000 - $3,000", "Más de $3,000", "Prefiero no decir"],
+  },
+  {
+    key: "availableCapital",
+    category: "Perfil financiero",
+    title: "¿Con cuánto capital puedes iniciar?",
+    subtitle: "No tienes que invertir con nosotros. Esto es para medir tu punto de partida.",
+    input: "radio",
+    required: true,
+    options: ["$0 - $100", "$100 - $500", "$500 - $1,000", "Más de $1,000"],
+  },
+  {
+    key: "experienceLevel",
+    category: "Trading",
+    title: "¿Cuál es tu nivel de experiencia?",
+    subtitle: "Sé honesto. El objetivo es ponerte en el nivel correcto.",
+    input: "radio",
+    required: true,
+    options: ["Ninguna", "Básica", "Intermedia", "Avanzada"],
+  },
+  {
+    key: "markets",
+    category: "Trading",
+    title: "¿Qué mercados te interesan?",
+    subtitle: "Puedes seleccionar más de uno.",
+    input: "checkbox",
+    required: true,
+    options: ["Forex", "Oro / XAUUSD", "Índices / NAS100 / US30", "Criptomonedas", "No sé todavía"],
+  },
+  {
+    key: "tradingLosses",
+    category: "Trading",
+    title: "¿Has tenido pérdidas operando?",
+    subtitle: "Esto nos ayuda a entender tu experiencia y mentalidad.",
+    input: "radio",
+    required: true,
+    options: ["Sí", "No", "Nunca he operado"],
+  },
+  {
+    key: "motivation",
+    category: "Mentalidad",
+    title: "¿Por qué deseas aprender trading?",
+    subtitle: "Escribe una respuesta corta y real. Queremos conocer tu enfoque.",
+    input: "textarea",
+    placeholder: "Quiero aprender trading porque...",
+    required: true,
+  },
+  {
+    key: "weeklyTime",
+    category: "Compromiso",
+    title: "¿Cuánto tiempo semanal puedes dedicar?",
+    subtitle: "La consistencia es clave dentro de la academia.",
+    input: "radio",
+    required: true,
+    options: ["1 a 5 horas", "5 a 10 horas", "Más de 10 horas"],
+  },
+  {
+    key: "accessInterest",
+    category: "Programa",
+    title: "¿Qué tipo de acceso te interesa?",
+    subtitle: "Puedes seleccionar más de una opción.",
+    input: "checkbox",
+    required: true,
+    options: ["Señales VIP", "Indicador automatizado", "Mentoría personalizada", "Comunidad + educación"],
+  },
+  {
+    type: "review",
+    category: "Resumen",
+    title: "Revisa tu solicitud antes de enviar.",
+    subtitle: "Si todo está correcto, presiona enviar solicitud.",
+  },
+];
+
+const state = {
+  index: 0,
+  answers: {},
+  activeFilter: "pending",
+  panelRequests: [],
+};
+
+const questionInner = document.getElementById("questionInner");
+const progressLabel = document.getElementById("progressLabel");
+const stepCategory = document.getElementById("stepCategory");
+const progressBar = document.getElementById("progressBar");
+const progressPercent = document.getElementById("progressPercent");
+const ringFill = document.getElementById("ringFill");
+const backBtn = document.getElementById("backBtn");
+const nextBtn = document.getElementById("nextBtn");
+const formMessage = document.getElementById("formMessage");
+const thanksOverlay = document.getElementById("thanksOverlay");
+const closeThanksBtn = document.getElementById("closeThanksBtn");
+const panelOverlay = document.getElementById("panelOverlay");
+const openPanelBtn = document.getElementById("openPanelBtn");
+const closePanelBtn = document.getElementById("closePanelBtn");
+const panelLogin = document.getElementById("panelLogin");
+const panelDashboard = document.getElementById("panelDashboard");
+const panelLoginForm = document.getElementById("panelLoginForm");
+const ownerPassword = document.getElementById("ownerPassword");
+const panelMessage = document.getElementById("panelMessage");
+const logoutBtn = document.getElementById("logoutBtn");
+const exportBtn = document.getElementById("exportBtn");
+const searchRequests = document.getElementById("searchRequests");
+const requestsList = document.getElementById("requestsList");
+const requestTemplate = document.getElementById("requestTemplate");
+const totalCount = document.getElementById("totalCount");
+const pendingCount = document.getElementById("pendingCount");
+const acceptedCount = document.getElementById("acceptedCount");
+const filters = Array.from(document.querySelectorAll("[data-filter]"));
+
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+function normalizePhone(phone) {
+  return String(phone || "").replace(/^00/, "").replace(/\D/g, "");
+}
+
+function buildWhatsappUrl(phone, message) {
+  return `https://wa.me/${normalizePhone(phone)}?text=${encodeURIComponent(message)}`;
+}
+
+function createId() {
+  return `OLON-${Date.now().toString(36).toUpperCase()}-${Math.random().toString(36).slice(2, 7).toUpperCase()}`;
+}
+
+function readLocalRequests() {
+  try {
+    const parsed = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+}
+
+function writeLocalRequests(requests) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(requests));
+}
+
+function requestToRow(request) {
+  return {
+    id: request.id,
+    status: request.status,
+    submitted_at: request.submittedAt,
+    accepted_at: request.acceptedAt,
+    full_name: request.fullName,
+    email: request.email,
+    whatsapp: request.whatsapp,
+    clean_whatsapp: request.cleanWhatsapp,
+    age: Number(request.age) || null,
+    location: request.location,
+    working: request.working,
+    monthly_income: request.monthlyIncome,
+    available_capital: request.availableCapital,
+    experience_level: request.experienceLevel,
+    markets: request.markets || [],
+    trading_losses: request.tradingLosses,
+    motivation: request.motivation,
+    weekly_time: request.weeklyTime,
+    access_interest: request.accessInterest || [],
+  };
+}
+
+function rowToRequest(row) {
+  return {
+    id: row.id,
+    status: row.status || "pending",
+    submittedAt: row.submitted_at,
+    acceptedAt: row.accepted_at,
+    fullName: row.full_name,
+    email: row.email,
+    whatsapp: row.whatsapp,
+    cleanWhatsapp: row.clean_whatsapp,
+    age: row.age ? String(row.age) : "",
+    location: row.location || "",
+    working: row.working || "",
+    monthlyIncome: row.monthly_income || "",
+    availableCapital: row.available_capital || "",
+    experienceLevel: row.experience_level || "",
+    markets: row.markets || [],
+    tradingLosses: row.trading_losses || "",
+    motivation: row.motivation || "",
+    weeklyTime: row.weekly_time || "",
+    accessInterest: row.access_interest || [],
+  };
+}
+
+async function saveRequest(request) {
+  if (!supabaseClient) {
+    const requests = readLocalRequests();
+    requests.unshift(request);
+    writeLocalRequests(requests);
+    return;
+  }
+
+  const { error } = await supabaseClient.from("portal_requests").insert(requestToRow(request));
+  if (error) throw error;
+}
+
+async function fetchRequests() {
+  if (!supabaseClient) return readLocalRequests();
+
+  const { data, error } = await supabaseClient
+    .from("portal_requests")
+    .select("*")
+    .order("submitted_at", { ascending: false });
+
+  if (error) throw error;
+  return (data || []).map(rowToRequest);
+}
+
+async function acceptRequest(request) {
+  const acceptedAt = new Date().toISOString();
+
+  if (!supabaseClient) {
+    const updated = readLocalRequests().map((item) =>
+      item.id === request.id ? { ...item, status: "accepted", acceptedAt } : item
+    );
+    writeLocalRequests(updated);
+    return;
+  }
+
+  const { error } = await supabaseClient
+    .from("portal_requests")
+    .update({ status: "accepted", accepted_at: acceptedAt })
+    .eq("id", request.id);
+
+  if (error) throw error;
+}
+
+async function deleteRequest(request) {
+  if (!supabaseClient) {
+    writeLocalRequests(readLocalRequests().filter((item) => item.id !== request.id));
+    return;
+  }
+
+  const { error } = await supabaseClient.from("portal_requests").delete().eq("id", request.id);
+  if (error) throw error;
+}
+
+function updateProgress() {
+  const total = steps.length;
+  const humanStep = state.index + 1;
+  const percent = Math.round((state.index / (total - 1)) * 100);
+  const ringLength = 113;
+  const offset = ringLength - (ringLength * percent) / 100;
+
+  progressLabel.textContent = `Paso ${humanStep} de ${total}`;
+  stepCategory.textContent = steps[state.index].category || "";
+  progressBar.style.width = `${percent}%`;
+  progressPercent.textContent = `${percent}%`;
+  ringFill.style.strokeDashoffset = String(offset);
+
+  backBtn.style.visibility = state.index === 0 ? "hidden" : "visible";
+
+  if (state.index === 0) nextBtn.textContent = "Comenzar";
+  else if (steps[state.index].type === "review") nextBtn.textContent = "Enviar solicitud";
+  else nextBtn.textContent = "Continuar";
+}
+
+function renderStep() {
+  const step = steps[state.index];
+  formMessage.textContent = "";
+  formMessage.classList.remove("error");
+  updateProgress();
+
+  questionInner.style.animation = "none";
+  requestAnimationFrame(() => {
+    questionInner.style.animation = "";
+  });
+
+  if (step.type === "welcome") {
+    questionInner.innerHTML = `
+      <div class="question-step">
+        <span class="step-number">Olon Society Academy</span>
+        <h2 class="question-title">${escapeHtml(step.title)}</h2>
+        <p class="question-subtitle">${escapeHtml(step.subtitle)}</p>
+        <div class="review-grid">
+          <div><span>Diseño</span><p>Una pregunta por pantalla, estilo Typeform premium.</p></div>
+          <div><span>Tiempo</span><p>Completar la solicitud toma menos de 3 minutos.</p></div>
+          <div><span>Revisión</span><p>Tu solicitud queda pendiente hasta ser evaluada.</p></div>
+          <div><span>Acceso</span><p>Si eres aprobado, te escribiremos por WhatsApp.</p></div>
+        </div>
+      </div>
+    `;
+    return;
+  }
+
+  if (step.type === "review") {
+    questionInner.innerHTML = renderReview();
+    return;
+  }
+
+  const savedValue = state.answers[step.key] ?? (step.input === "checkbox" ? [] : "");
+  let controlHtml = "";
+
+  if (["text", "email", "tel", "number"].includes(step.input)) {
+    controlHtml = `<input class="input-large" id="currentInput" type="${step.input}" placeholder="${escapeHtml(step.placeholder || "")}" value="${escapeHtml(savedValue)}" autocomplete="off" />`;
+  }
+
+  if (step.input === "textarea") {
+    controlHtml = `<textarea class="textarea-large" id="currentInput" placeholder="${escapeHtml(step.placeholder || "")}">${escapeHtml(savedValue)}</textarea>`;
+  }
+
+  if (step.input === "radio") {
+    controlHtml = `
+      <div class="options-grid">
+        ${step.options.map((option) => `
+          <label class="option-card">
+            <input type="radio" name="${step.key}" value="${escapeHtml(option)}" ${savedValue === option ? "checked" : ""} />
+            <span>${escapeHtml(option)}</span>
+          </label>
+        `).join("")}
+      </div>
+    `;
+  }
+
+  if (step.input === "checkbox") {
+    const values = Array.isArray(savedValue) ? savedValue : [];
+    controlHtml = `
+      <div class="options-grid">
+        ${step.options.map((option) => `
+          <label class="option-card">
+            <input type="checkbox" name="${step.key}" value="${escapeHtml(option)}" ${values.includes(option) ? "checked" : ""} />
+            <span>${escapeHtml(option)}</span>
+          </label>
+        `).join("")}
+      </div>
+    `;
+  }
+
+  questionInner.innerHTML = `
+    <div class="question-step">
+      <span class="step-number">${escapeHtml(step.category)}</span>
+      <h2 class="question-title">${escapeHtml(step.title)}</h2>
+      <p class="question-subtitle">${escapeHtml(step.subtitle || "")}</p>
+      ${controlHtml}
+    </div>
+  `;
+
+  const input = document.getElementById("currentInput");
+  if (input) {
+    setTimeout(() => input.focus(), 50);
+    input.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" && step.input !== "textarea") {
+        event.preventDefault();
+        nextStep();
+      }
+    });
+  }
+}
+
+function getCurrentValue() {
+  const step = steps[state.index];
+  if (step.type) return true;
+
+  if (["text", "email", "tel", "number", "textarea"].includes(step.input)) {
+    return String(document.getElementById("currentInput")?.value || "").trim();
+  }
+
+  if (step.input === "radio") {
+    return document.querySelector(`input[name="${step.key}"]:checked`)?.value || "";
+  }
+
+  if (step.input === "checkbox") {
+    return Array.from(document.querySelectorAll(`input[name="${step.key}"]:checked`)).map((input) => input.value);
+  }
+
+  return "";
+}
+
+function validateStep() {
+  const step = steps[state.index];
+  if (step.type) return true;
+
+  const value = getCurrentValue();
+
+  if (step.required) {
+    if (Array.isArray(value) && value.length === 0) {
+      showFormMessage("Selecciona al menos una opción.", true);
+      return false;
+    }
+
+    if (!Array.isArray(value) && !value) {
+      showFormMessage("Completa esta pregunta para continuar.", true);
+      return false;
+    }
+  }
+
+  if (step.key === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+    showFormMessage("Escribe un correo válido.", true);
+    return false;
+  }
+
+  if (step.key === "whatsapp" && normalizePhone(value).length < 7) {
+    showFormMessage("Verifica el número de WhatsApp.", true);
+    return false;
+  }
+
+  if (step.key === "age") {
+    const age = Number(value);
+    if (!Number.isFinite(age) || age < 13 || age > 100) {
+      showFormMessage("Escribe una edad válida.", true);
+      return false;
+    }
+  }
+
+  state.answers[step.key] = value;
+  return true;
+}
+
+function showFormMessage(message, isError = false) {
+  formMessage.textContent = message;
+  formMessage.classList.toggle("error", isError);
+}
+
+function nextStep() {
+  const step = steps[state.index];
+
+  if (step.type === "review") {
+    submitApplication();
+    return;
+  }
+
+  if (!validateStep()) return;
+
+  if (state.index < steps.length - 1) {
+    state.index++;
+    renderStep();
+  }
+}
+
+function previousStep() {
+  if (state.index > 0) {
+    state.index--;
+    renderStep();
+  }
+}
+
+function renderReview() {
+  const a = state.answers;
+  const rows = [
+    ["Nombre", a.fullName],
+    ["Email", a.email],
+    ["WhatsApp", a.whatsapp],
+    ["Edad", a.age],
+    ["Ubicación", a.location],
+    ["Trabaja", a.working],
+    ["Ingreso", a.monthlyIncome],
+    ["Capital", a.availableCapital],
+    ["Experiencia", a.experienceLevel],
+    ["Mercados", Array.isArray(a.markets) ? a.markets.join(", ") : a.markets],
+    ["Pérdidas", a.tradingLosses],
+    ["Tiempo semanal", a.weeklyTime],
+    ["Interés", Array.isArray(a.accessInterest) ? a.accessInterest.join(", ") : a.accessInterest],
+    ["Motivación", a.motivation],
+  ];
+
+  return `
+    <div class="review-card">
+      <span class="step-number">Resumen final</span>
+      <h3>Confirma que todo esté correcto.</h3>
+      <p class="question-subtitle">Puedes volver atrás para corregir cualquier respuesta antes de enviar tu solicitud.</p>
+      <div class="review-grid">
+        ${rows.map(([label, value]) => `
+          <div>
+            <span>${escapeHtml(label)}</span>
+            <p>${escapeHtml(value || "—")}</p>
+          </div>
+        `).join("")}
+      </div>
+    </div>
+  `;
+}
+
+function makeRequest() {
+  const a = state.answers;
+  return {
+    id: createId(),
+    status: "pending",
+    submittedAt: new Date().toISOString(),
+    acceptedAt: null,
+    fullName: a.fullName || "",
+    email: a.email || "",
+    whatsapp: a.whatsapp || "",
+    cleanWhatsapp: normalizePhone(a.whatsapp),
+    age: a.age || "",
+    location: a.location || "",
+    working: a.working || "",
+    monthlyIncome: a.monthlyIncome || "",
+    availableCapital: a.availableCapital || "",
+    experienceLevel: a.experienceLevel || "",
+    markets: a.markets || [],
+    tradingLosses: a.tradingLosses || "",
+    motivation: a.motivation || "",
+    weeklyTime: a.weeklyTime || "",
+    accessInterest: a.accessInterest || [],
+  };
+}
+
+async function submitApplication() {
+  const request = makeRequest();
+
+  nextBtn.disabled = true;
+  showFormMessage("Enviando solicitud...");
+
+  try {
+    await saveRequest(request);
+    state.answers = {};
+    state.index = 0;
+    renderStep();
+    showFormMessage("");
+    openThanksScreen();
+  } catch (error) {
+    showFormMessage(error.message || "No se pudo enviar la solicitud.", true);
+  } finally {
+    nextBtn.disabled = false;
+  }
+}
+
+
+function openThanksScreen() {
+  thanksOverlay.classList.add("open");
+  thanksOverlay.setAttribute("aria-hidden", "false");
+  document.body.style.overflow = "hidden";
+}
+
+function closeThanksScreen() {
+  thanksOverlay.classList.remove("open");
+  thanksOverlay.setAttribute("aria-hidden", "true");
+  document.body.style.overflow = "";
+  state.index = 0;
+  state.answers = {};
+  renderStep();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function openPanel() {
+  panelOverlay.classList.add("open");
+  panelOverlay.setAttribute("aria-hidden", "false");
+  document.body.style.overflow = "hidden";
+  panelMessage.textContent = "";
+  setTimeout(() => ownerPassword.focus(), 50);
+}
+
+function closePanel() {
+  panelOverlay.classList.remove("open");
+  panelOverlay.setAttribute("aria-hidden", "true");
+  document.body.style.overflow = "";
+}
+
+function unlockPanel() {
+  const password = ownerPassword.value;
+
+  if (supabaseClient) {
+    // This template keeps the premium panel simple. If using Supabase Auth, add sign-in here.
+    panelMessage.textContent = "Supabase está conectado. Para Auth avanzado, configura login por email en tu proyecto.";
+  }
+
+  if (password !== LOCAL_PANEL_PASSWORD) {
+    panelMessage.textContent = "Clave incorrecta.";
+    panelMessage.classList.add("error");
+    return;
+  }
+
+  panelMessage.classList.remove("error");
+  ownerPassword.value = "";
+  panelLogin.style.display = "none";
+  panelDashboard.classList.add("open");
+  refreshPanel();
+}
+
+async function refreshPanel() {
+  try {
+    state.panelRequests = await fetchRequests();
+    renderRequests();
+  } catch (error) {
+    requestsList.innerHTML = `<div class="empty-state">No se pudieron cargar las solicitudes.</div>`;
+  }
+}
+
+function formatDate(value) {
+  if (!value) return "Sin fecha";
+  return new Intl.DateTimeFormat("es-US", {
+    year: "numeric",
+    month: "short",
+    day: "2-digit",
+    hour: "numeric",
+    minute: "2-digit",
+  }).format(new Date(value));
+}
+
+function matchesSearch(request, term) {
+  if (!term) return true;
+  const haystack = [
+    request.fullName,
+    request.email,
+    request.whatsapp,
+    request.location,
+    request.experienceLevel,
+    request.availableCapital,
+    ...(request.markets || []),
+    ...(request.accessInterest || []),
+  ].join(" ").toLowerCase();
+
+  return haystack.includes(term.toLowerCase());
+}
+
+function renderRequests() {
+  const term = searchRequests.value.trim();
+  const all = state.panelRequests;
+
+  const pending = all.filter((request) => request.status !== "accepted").length;
+  const accepted = all.filter((request) => request.status === "accepted").length;
+
+  totalCount.textContent = all.length;
+  pendingCount.textContent = pending;
+  acceptedCount.textContent = accepted;
+
+  const filtered = all.filter((request) => {
+    const statusOk =
+      state.activeFilter === "all" ||
+      (state.activeFilter === "pending" && request.status !== "accepted") ||
+      (state.activeFilter === "accepted" && request.status === "accepted");
+
+    return statusOk && matchesSearch(request, term);
+  });
+
+  if (!filtered.length) {
+    requestsList.innerHTML = `<div class="empty-state">No hay solicitudes para mostrar.</div>`;
+    return;
+  }
+
+  requestsList.innerHTML = "";
+  filtered.forEach((request) => {
+    const node = requestTemplate.content.firstElementChild.cloneNode(true);
+    const isAccepted = request.status === "accepted";
+
+    node.classList.toggle("is-accepted", isAccepted);
+    node.querySelector(".request-date").textContent = formatDate(request.submittedAt);
+    node.querySelector(".request-name").textContent = request.fullName || "Sin nombre";
+    node.querySelector(".request-status").textContent = isAccepted ? "Aceptada" : "Pendiente";
+    node.querySelector(".request-status").classList.toggle("accepted", isAccepted);
+    node.querySelector(".request-email").textContent = request.email || "—";
+    node.querySelector(".request-whatsapp").textContent = request.whatsapp || "—";
+    node.querySelector(".request-location").textContent = request.location || "—";
+    node.querySelector(".request-experience").textContent = request.experienceLevel || "—";
+    node.querySelector(".request-capital").textContent = request.availableCapital || "—";
+    node.querySelector(".request-interest").textContent = (request.accessInterest || []).join(", ") || "—";
+
+    const details = [
+      ["Edad", request.age],
+      ["Trabaja", request.working],
+      ["Ingreso mensual", request.monthlyIncome],
+      ["Mercados", (request.markets || []).join(", ")],
+      ["Pérdidas operando", request.tradingLosses],
+      ["Motivación", request.motivation],
+      ["Tiempo semanal", request.weeklyTime],
+      ["Código", request.id],
+    ];
+
+    node.querySelector(".details-grid").innerHTML = details.map(([label, value]) => `
+      <div>
+        <span>${escapeHtml(label)}</span>
+        <p>${escapeHtml(value || "—")}</p>
+      </div>
+    `).join("");
+
+    node.querySelector(".accept-btn").addEventListener("click", async () => {
+      try {
+        await acceptRequest(request);
+        window.open(buildWhatsappUrl(request.whatsapp, WHATSAPP_MESSAGE), "_blank", "noopener,noreferrer");
+        await refreshPanel();
+      } catch (error) {
+        alert("No se pudo aceptar la solicitud.");
+      }
+    });
+
+    node.querySelector(".delete-btn").addEventListener("click", async () => {
+      if (!confirm("¿Seguro que deseas eliminar esta solicitud?")) return;
+      try {
+        await deleteRequest(request);
+        await refreshPanel();
+      } catch (error) {
+        alert("No se pudo eliminar la solicitud.");
+      }
+    });
+
+    requestsList.appendChild(node);
+  });
+}
+
+function exportCsv() {
+  const rows = state.panelRequests.map((request) => ({
+    id: request.id,
+    status: request.status,
+    submittedAt: request.submittedAt,
+    fullName: request.fullName,
+    email: request.email,
+    whatsapp: request.whatsapp,
+    age: request.age,
+    location: request.location,
+    working: request.working,
+    monthlyIncome: request.monthlyIncome,
+    availableCapital: request.availableCapital,
+    experienceLevel: request.experienceLevel,
+    markets: (request.markets || []).join(" | "),
+    tradingLosses: request.tradingLosses,
+    motivation: request.motivation,
+    weeklyTime: request.weeklyTime,
+    accessInterest: (request.accessInterest || []).join(" | "),
+  }));
+
+  if (!rows.length) {
+    alert("No hay solicitudes para exportar.");
+    return;
+  }
+
+  const headers = Object.keys(rows[0]);
+  const csv = [
+    headers.join(","),
+    ...rows.map((row) =>
+      headers.map((header) => `"${String(row[header] ?? "").replaceAll('"', '""')}"`).join(",")
+    ),
+  ].join("\n");
+
+  const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = `solicitudes-olon-${new Date().toISOString().slice(0, 10)}.csv`;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(url);
+}
+
+backBtn.addEventListener("click", previousStep);
+nextBtn.addEventListener("click", nextStep);
+
+
+closeThanksBtn.addEventListener("click", closeThanksScreen);
+
+openPanelBtn.addEventListener("click", openPanel);
+closePanelBtn.addEventListener("click", closePanel);
+
+panelLoginForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  unlockPanel();
+});
+
+logoutBtn.addEventListener("click", () => {
+  panelDashboard.classList.remove("open");
+  panelLogin.style.display = "";
+  closePanel();
+});
+
+exportBtn.addEventListener("click", exportCsv);
+
+searchRequests.addEventListener("input", renderRequests);
+
+filters.forEach((button) => {
+  button.addEventListener("click", () => {
+    state.activeFilter = button.dataset.filter;
+    filters.forEach((item) => item.classList.toggle("active", item === button));
+    renderRequests();
+  });
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") {
+    closeThanksScreen();
+    closePanel();
+  }
+});
+
+renderStep();
+
+  </script>
 </body>
 </html>
