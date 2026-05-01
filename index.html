@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Olon Society Academy - Solicitud privada de acceso estilo Typeform premium." />
-  <title>Olon Society Academy | Aplicación Premium</title>
+  <meta name="description" content="Olon Society Academy - Solicitud privada de acceso estilo solicitud privada." />
+  <title>Olon Society Academy | Solicitud de Acceso</title>
   <link rel="icon" type="image/png" href="assets/favicon.png" />
   <link rel="apple-touch-icon" href="assets/favicon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -226,7 +226,7 @@ a {
   transform: translateY(-2px);
 }
 
-.typeform-app {
+.solicitud-app {
   min-height: 100vh;
   display: grid;
   grid-template-columns: minmax(320px, 0.85fr) minmax(0, 1.15fr);
@@ -872,7 +872,7 @@ h3 {
 }
 
 @media (max-width: 980px) {
-  .typeform-app {
+  .solicitud-app {
     grid-template-columns: 1fr;
     padding-top: 98px;
   }
@@ -923,7 +923,7 @@ h3 {
     font-size: 0.74rem;
   }
 
-  .typeform-app {
+  .solicitud-app {
     padding: 84px 14px 22px;
     gap: 16px;
   }
@@ -1092,16 +1092,15 @@ h3 {
 
     <div class="top-actions">
       <button class="ghost-btn" type="button" id="openPanelBtn">Panel privado</button>
-      <a class="whatsapp-btn" href="https://wa.me/17879048668?text=Hola%2C%20quiero%20informacion%20sobre%20Olon%20Society%20Academy" target="_blank" rel="noopener noreferrer">WhatsApp</a>
     </div>
   </header>
 
-  <main class="typeform-app">
+  <main class="solicitud-app">
     <aside class="app-side">
       <div class="side-card">
-        <div class="side-kicker">Aplicación privada</div>
+        <div class="side-kicker">Solicitud privada</div>
         <h1>Solicita tu acceso a la academia.</h1>
-        <p>Completa el perfil paso a paso. Revisaremos tu información y, si cualificas, recibirás los próximos pasos por WhatsApp.</p>
+        <p>Completa tu perfil. Revisaremos tu información y, si cualificas, recibirás los próximos pasos.</p>
 
         <div class="mini-stats">
           <div><strong>01</strong><span>Perfil</span></div>
@@ -1135,7 +1134,7 @@ h3 {
         <span id="progressBar"></span>
       </div>
 
-      <form id="typeformForm" class="question-card">
+      <form id="solicitudForm" class="question-card">
         <div class="question-inner" id="questionInner"></div>
 
         <div class="nav-row">
@@ -1241,10 +1240,10 @@ h3 {
 
   <script>
 const STORAGE_KEY = "olonPortalRequests";
-const TYPEFORM_STORAGE_KEY = "olonTypeformRequests";
+const TYPEFORM_STORAGE_KEY = "olonsolicitudRequests";
 const EXTRA_STORAGE_KEYS = [
   "olonPortalRequests",
-  "olonTypeformRequests",
+  "olonsolicitudRequests",
   "portal_requests",
   "requests",
   "academyRequests",
@@ -1284,8 +1283,8 @@ const steps = [
   {
     type: "welcome",
     category: "Bienvenida",
-    title: "Comencemos tu aplicación privada.",
-    subtitle: "Te haremos varias preguntas rápidas para conocer tu perfil. Al final podrás revisar todo antes de enviar.",
+    title: "Comencemos tu solicitud.",
+    subtitle: "Responde las preguntas para que nuestro equipo pueda evaluar tu perfil antes de enviarte los próximos pasos.",
   },
   {
     key: "fullName",
@@ -1773,7 +1772,7 @@ function renderStep() {
         <h2 class="question-title">${escapeHtml(step.title)}</h2>
         <p class="question-subtitle">${escapeHtml(step.subtitle)}</p>
         <div class="review-grid">
-          <div><span>Diseño</span><p>Una pregunta por pantalla, estilo Typeform premium.</p></div>
+          <div><span>Solicitud</span><p>Completa tu información para evaluación.</p></div>
           <div><span>Tiempo</span><p>Completar la solicitud toma menos de 3 minutos.</p></div>
           <div><span>Revisión</span><p>Tu solicitud queda pendiente hasta ser evaluada.</p></div>
           <div><span>Acceso</span><p>Si eres aprobado, te escribiremos por WhatsApp.</p></div>
