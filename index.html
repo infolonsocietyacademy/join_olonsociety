@@ -11,13 +11,18 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800;900&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
   <script>
-// Configuración opcional de Supabase.
-// Si no conectas Supabase, el sistema guardará solicitudes en localStorage del navegador.
-// Para conectar Supabase, reemplaza estos valores por la URL y anon public key de tu proyecto.
-
 window.OLON_SUPABASE = {
-  url: "PASTE_SUPABASE_URL_HERE",
-  anonKey: "PASTE_SUPABASE_ANON_KEY_HERE"
+  // Supabase Dashboard > Project Settings > API > Project URL
+  // Usa la URL base, sin /rest/v1 al final.
+  url: "https://ymqerlqrfndblyaifzzh.supabase.co",
+
+  // Supabase Dashboard > Project Settings > API > anon public key
+  // Tambien puede llamarse publishable key.
+  // Nunca pegues aqui una secret/service_role key.
+  anonKey: "sb_publishable_iTDkEkYW6QH9rj2hVl5anw_KIEa1A4L",
+
+  // Debe coincidir con el email del usuario owner creado en Supabase Auth.
+  ownerEmail: "infolonsocietyacademy@gmail.com",
 };
 
   </script>
@@ -1614,6 +1619,38 @@ function requestToRow(request) {
   };
 }
 
+
+function requestToOldPortalRow(request) {
+  const [country = "", city = ""] = String(request.location || "").split(",").map((part) => part.trim());
+
+  return {
+    id: request.id,
+    status: request.status,
+    submitted_at: request.submittedAt,
+    accepted_at: request.acceptedAt,
+    full_name: request.fullName,
+    email: request.email,
+    whatsapp: request.whatsapp,
+    clean_whatsapp: request.cleanWhatsapp,
+    age: request.age ? Number(request.age) : null,
+    country,
+    city,
+    working: request.working,
+    monthly_income: request.monthlyIncome,
+    available_capital: request.availableCapital,
+    experience_level: request.experienceLevel,
+    markets: request.markets || [],
+    trading_losses: request.tradingLosses,
+    motivation: request.motivation,
+    weekly_time: request.weeklyTime,
+    discipline: "",
+    main_goal: "",
+    results_timeline: "",
+    investment_intent: "",
+    access_interest: request.accessInterest || [],
+  };
+}
+
 function rowToRequest(row) {
   return {
     id: row.id || createId(),
@@ -1646,7 +1683,14 @@ async function saveRequest(request) {
     return;
   }
 
-  const { error } = await supabaseClient.from("portal_requests").insert(requestToRow(request));
+  let { error } = await supabaseClient.from("portal_requests").insert(requestToRow(request));
+
+  if (error) {
+    // Si la tabla vieja no tiene columnas nuevas como "location", intenta con el formato anterior.
+    const fallback = await supabaseClient.from("portal_requests").insert(requestToOldPortalRow(request));
+    error = fallback.error;
+  }
+
   if (error) throw error;
 }
 
@@ -2002,12 +2046,43 @@ function closePanel() {
   document.body.style.overflow = "";
 }
 
-function unlockPanel() {
-  const password = ownerPassword.value;
+async function unlockPanel() {
+  const password = ownerPassword.value.trim();
+  panelMessage.classList.remove("error");
+
+  if (!password) {
+    panelMessage.textContent = "Escribe la clave de acceso.";
+    panelMessage.classList.add("error");
+    return;
+  }
 
   if (supabaseClient) {
-    // This template keeps the premium panel simple. If using Supabase Auth, add sign-in here.
-    panelMessage.textContent = "Supabase está conectado. Para Auth avanzado, configura login por email en tu proyecto.";
+    panelMessage.textContent = "Conectando con Supabase...";
+
+    try {
+      const ownerEmail = String(supabaseConfig.ownerEmail || "infolonsocietyacademy@gmail.com").toLowerCase();
+      const { error } = await supabaseClient.auth.signInWithPassword({
+        email: ownerEmail,
+        password,
+      });
+
+      if (error) {
+        panelMessage.textContent = "No se pudo entrar. Verifica la clave del usuario owner en Supabase Auth.";
+        panelMessage.classList.add("error");
+        return;
+      }
+
+      panelMessage.textContent = "";
+      ownerPassword.value = "";
+      panelLogin.style.display = "none";
+      panelDashboard.classList.add("open");
+      await refreshPanel();
+      return;
+    } catch (error) {
+      panelMessage.textContent = error.message || "Error conectando con Supabase.";
+      panelMessage.classList.add("error");
+      return;
+    }
   }
 
   if (password !== LOCAL_PANEL_PASSWORD) {
@@ -2016,11 +2091,11 @@ function unlockPanel() {
     return;
   }
 
-  panelMessage.classList.remove("error");
+  panelMessage.textContent = "";
   ownerPassword.value = "";
   panelLogin.style.display = "none";
   panelDashboard.classList.add("open");
-  refreshPanel();
+  await refreshPanel();
 }
 
 async function refreshPanel() {
@@ -2205,12 +2280,19 @@ closeThanksBtn.addEventListener("click", closeThanksScreen);
 openPanelBtn.addEventListener("click", openPanel);
 closePanelBtn.addEventListener("click", closePanel);
 
-panelLoginForm.addEventListener("submit", (event) => {
+panelLoginForm.addEventListener("submit", async (event) => {
   event.preventDefault();
-  unlockPanel();
+  await unlockPanel();
 });
 
-logoutBtn.addEventListener("click", () => {
+logoutBtn.addEventListener("click", async () => {
+  if (supabaseClient) {
+    try {
+      await supabaseClient.auth.signOut();
+    } catch (error) {
+      // no hacer nada
+    }
+  }
   panelDashboard.classList.remove("open");
   panelLogin.style.display = "";
   closePanel();
