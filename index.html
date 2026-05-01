@@ -1177,6 +1177,7 @@ h3 {
             <h2>Solicitudes recibidas</h2>
           </div>
           <div class="dashboard-actions">
+            <button class="ghost-btn" type="button" id="recoverLocalBtn">Recuperar registros</button>
             <button class="ghost-btn" type="button" id="exportBtn">Exportar CSV</button>
             <button class="ghost-btn" type="button" id="logoutBtn">Salir</button>
           </div>
@@ -1234,7 +1235,18 @@ h3 {
   </template>
 
   <script>
-const STORAGE_KEY = "olonTypeformRequests";
+const STORAGE_KEY = "olonPortalRequests";
+const TYPEFORM_STORAGE_KEY = "olonTypeformRequests";
+const EXTRA_STORAGE_KEYS = [
+  "olonPortalRequests",
+  "olonTypeformRequests",
+  "portal_requests",
+  "requests",
+  "academyRequests",
+  "olonRequests",
+  "registrationRequests",
+  "formRequests"
+];
 const LOCAL_PANEL_PASSWORD = "nolofx";
 const WHATSAPP_MESSAGE = `Bienvenido(a) a Olon Society Academy. Tu solicitud ha sido aprobada.
 
@@ -1432,6 +1444,7 @@ const ownerPassword = document.getElementById("ownerPassword");
 const panelMessage = document.getElementById("panelMessage");
 const logoutBtn = document.getElementById("logoutBtn");
 const exportBtn = document.getElementById("exportBtn");
+const recoverLocalBtn = document.getElementById("recoverLocalBtn");
 const searchRequests = document.getElementById("searchRequests");
 const requestsList = document.getElementById("requestsList");
 const requestTemplate = document.getElementById("requestTemplate");
@@ -1461,13 +1474,116 @@ function createId() {
   return `OLON-${Date.now().toString(36).toUpperCase()}-${Math.random().toString(36).slice(2, 7).toUpperCase()}`;
 }
 
-function readLocalRequests() {
+function normalizeLegacyRequest(item) {
+  if (!item) return null;
+
+  if (item.fullName || item.location || item.experienceLevel) {
+    return {
+      id: item.id || createId(),
+      status: item.status || "pending",
+      submittedAt: item.submittedAt || item.submitted_at || new Date().toISOString(),
+      acceptedAt: item.acceptedAt || item.accepted_at || null,
+      fullName: item.fullName || "",
+      email: item.email || "",
+      whatsapp: item.whatsapp || "",
+      cleanWhatsapp: item.cleanWhatsapp || normalizePhone(item.whatsapp),
+      age: item.age || "",
+      location: item.location || "",
+      working: item.working || "",
+      monthlyIncome: item.monthlyIncome || "",
+      availableCapital: item.availableCapital || "",
+      experienceLevel: item.experienceLevel || "",
+      markets: item.markets || [],
+      tradingLosses: item.tradingLosses || "",
+      motivation: item.motivation || "",
+      weeklyTime: item.weeklyTime || "",
+      accessInterest: item.accessInterest || [],
+    };
+  }
+
+  if (item.personal || item.financial || item.trading || item.mindset || item.program) {
+    const personal = item.personal || {};
+    const financial = item.financial || {};
+    const trading = item.trading || {};
+    const mindset = item.mindset || {};
+    const program = item.program || {};
+
+    return {
+      id: item.id || createId(),
+      status: item.status || "pending",
+      submittedAt: item.submittedAt || item.submitted_at || new Date().toISOString(),
+      acceptedAt: item.acceptedAt || item.accepted_at || null,
+      fullName: personal.fullName || "",
+      email: personal.email || "",
+      whatsapp: personal.whatsapp || "",
+      cleanWhatsapp: personal.cleanWhatsapp || normalizePhone(personal.whatsapp),
+      age: personal.age || "",
+      location: [personal.country, personal.city].filter(Boolean).join(", "),
+      working: financial.working || "",
+      monthlyIncome: financial.monthlyIncome || "",
+      availableCapital: financial.availableCapital || "",
+      experienceLevel: trading.experienceLevel || "",
+      markets: trading.markets || [],
+      tradingLosses: trading.tradingLosses || "",
+      motivation: mindset.motivation || "",
+      weeklyTime: mindset.weeklyTime || "",
+      accessInterest: program.accessInterest || [],
+    };
+  }
+
+  return null;
+}
+
+function parseStoredRequests(key) {
   try {
-    const parsed = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+    const parsed = JSON.parse(localStorage.getItem(key) || "[]");
     return Array.isArray(parsed) ? parsed : [];
   } catch {
     return [];
   }
+}
+
+function readLocalRequests() {
+  const keys = new Set(EXTRA_STORAGE_KEYS);
+
+  // Escanea todas las llaves del navegador por si una versión vieja guardó con otro nombre.
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    if (!key) continue;
+    const lower = key.toLowerCase();
+    if (
+      lower.includes("olon") ||
+      lower.includes("portal") ||
+      lower.includes("request") ||
+      lower.includes("solicitud") ||
+      lower.includes("academy")
+    ) {
+      keys.add(key);
+    }
+  }
+
+  const merged = [];
+  keys.forEach((key) => {
+    parseStoredRequests(key).forEach((item) => {
+      const normalized = normalizeLegacyRequest(item);
+      if (normalized) merged.push(normalized);
+    });
+  });
+
+  const unique = [];
+  const seen = new Set();
+
+  merged.forEach((request) => {
+    const uniqueKey = request.id || `${request.email}-${request.whatsapp}-${request.submittedAt}`;
+    if (seen.has(uniqueKey)) return;
+    seen.add(uniqueKey);
+    unique.push(request);
+  });
+
+  unique.sort((a, b) => new Date(b.submittedAt || 0) - new Date(a.submittedAt || 0));
+
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(unique));
+  return unique;
 }
 
 function writeLocalRequests(requests) {
@@ -1500,25 +1616,25 @@ function requestToRow(request) {
 
 function rowToRequest(row) {
   return {
-    id: row.id,
+    id: row.id || createId(),
     status: row.status || "pending",
-    submittedAt: row.submitted_at,
-    acceptedAt: row.accepted_at,
-    fullName: row.full_name,
-    email: row.email,
-    whatsapp: row.whatsapp,
-    cleanWhatsapp: row.clean_whatsapp,
+    submittedAt: row.submitted_at || row.submittedAt || row.created_at || new Date().toISOString(),
+    acceptedAt: row.accepted_at || row.acceptedAt || null,
+    fullName: row.full_name || row.fullName || row.name || "",
+    email: row.email || "",
+    whatsapp: row.whatsapp || row.phone || row.telefono || "",
+    cleanWhatsapp: row.clean_whatsapp || row.cleanWhatsapp || normalizePhone(row.whatsapp || row.phone || row.telefono),
     age: row.age ? String(row.age) : "",
-    location: row.location || "",
-    working: row.working || "",
-    monthlyIncome: row.monthly_income || "",
-    availableCapital: row.available_capital || "",
-    experienceLevel: row.experience_level || "",
-    markets: row.markets || [],
-    tradingLosses: row.trading_losses || "",
-    motivation: row.motivation || "",
-    weeklyTime: row.weekly_time || "",
-    accessInterest: row.access_interest || [],
+    location: row.location || [row.country || row.pais, row.city || row.ciudad].filter(Boolean).join(", "),
+    working: row.working || row.trabajando || "",
+    monthlyIncome: row.monthly_income || row.monthlyIncome || row.ingreso_mensual || "",
+    availableCapital: row.available_capital || row.availableCapital || row.capital_disponible || "",
+    experienceLevel: row.experience_level || row.experienceLevel || row.nivel_experiencia || "",
+    markets: row.markets || row.mercados || [],
+    tradingLosses: row.trading_losses || row.tradingLosses || row.perdidas || "",
+    motivation: row.motivation || row.motivacion || "",
+    weeklyTime: row.weekly_time || row.weeklyTime || row.tiempo_semanal || "",
+    accessInterest: row.access_interest || row.accessInterest || row.interes_acceso || [],
   };
 }
 
@@ -2027,6 +2143,14 @@ function renderRequests() {
   });
 }
 
+
+function recoverLocalRecords() {
+  const recovered = readLocalRequests();
+  state.panelRequests = recovered;
+  renderRequests();
+  alert(`Recuperación completada. Registros encontrados: ${recovered.length}`);
+}
+
 function exportCsv() {
   const rows = state.panelRequests.map((request) => ({
     id: request.id,
@@ -2092,6 +2216,7 @@ logoutBtn.addEventListener("click", () => {
   closePanel();
 });
 
+recoverLocalBtn.addEventListener("click", recoverLocalRecords);
 exportBtn.addEventListener("click", exportCsv);
 
 searchRequests.addEventListener("input", renderRequests);
